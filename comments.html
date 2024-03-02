@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <title>Comments</title>
+  </head>
+  <body>
+    <nav
+      class="nav-bar bg-success p-2 font-monospace"
+      style="--bs-bg-opacity: 0.5"
+    >
+      <div class="container-fluid" id="">
+        <a class="navbar-brand fs-2 fw-semibold" href="#"
+          >Specific City <span id="city"></span
+        ></a>
+      </div>
+    </nav>
+
+    <div
+      class="d-flex justify-content-center mt-4 fw-semibold fs-2 pt-3 font-monospace"
+    >
+      Comments
+    </div>
+
+    <div class="d-flex justify-content-center font-monospace">
+      <div class="container mx-lg-5 mx-3 my-3">
+        <div class="text-end">
+          <a
+            data-bs-toggle="modal"
+            data-bs-target="#add_modal"
+            class="btn btn-success me-2 m-3"
+            id="btn-add"
+            >Add Comment</a
+          >
+        </div>
+        <div id="comments-container" class="row row-cols-10"></div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="add_modal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">
+              Add Your Comment
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="card-body d-flex flex-column">
+              <form>
+                <div class="mb-3">
+                  <textarea
+                    class="form-control"
+                    id="commentAdd"
+                    rows="3"
+                  ></textarea>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="add-submit" class="btn btn-success">
+              Add Comment
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="reply_modal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">
+              Add Your Reply
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="card-body d-flex flex-column">
+              <form>
+                <div class="mb-3">
+                  <textarea
+                    class="form-control"
+                    id="replyAdd"
+                    rows="3"
+                  ></textarea>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="reply-submit" class="btn btn-success">
+              Reply
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/118e30abce.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+      var currUser = {
+        userId: 1,
+        name: "User 1",
+        email: "user1@example.com",
+        password: "password1",
+      };
+      localStorage.setItem("user", JSON.stringify(currUser));
+      let data = "";
+      let countryName = "";
+      let cityName = "";
+      let placeName = "";
+      let comments = [];
+      let users = [];
+      const user = JSON.parse(localStorage.getItem("user"));
+      const userId = user.userId;
+      const apiUrl = "https://jsonblob.com/api/1213499724727705600";
+      const userApiUrl = "https://jsonblob.com/api/1213602404489879552";
+
+      //fetch all data
+      Promise.all([axios.get(apiUrl), axios.get(userApiUrl)])
+        .then(function (res) {
+          data = res[0].data;
+          users = res[1].data;
+          countryName = getQueryParam("country");
+          cityName = getQueryParam("city");
+          placeName = getQueryParam("place");
+          comments = findComments(countryName, cityName, placeName);
+          displayComments(comments);
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+
+      function getQueryParam(key) {
+        let queryParams = new URLSearchParams(window.location.search);
+        return queryParams.has(key) ? queryParams.get(key) : null;
+      }
+
+      function findComments(countryName, cityName, placeName) {
+        const country = data.countries.find(
+          (country) => country.country === countryName
+        );
+        if (!country) {
+          console.log("country not found");
+          return;
+        }
+        const city = country.cities.find((city) => city.city === cityName);
+        if (!city) {
+          console.log("city not found");
+          return;
+        }
+        const place = city.places.find((place) => place.place === placeName);
+        if (!place) {
+          console.log("place not found");
+          return;
+        }
+        return place.comments;
+      }
+
+      function getUser(userId) {
+        const neededUser = users.find((user) => user.userId === userId);
+        return neededUser;
+      }
+
+      function generateComment(comment) {
+        let repliesHtml = "";
+        if (comment.replies && comment.replies.length > 0) {
+          for (let reply of comment.replies) {
+            let replyUser = getUser(reply.userId);
+            let replyUsername = replyUser ? replyUser.name : "Unknown User";
+            repliesHtml += `
+                <div style="margin-left: 50px;">
+                    <div class="card  mb-3 mx-auto">
+                    <div class="card-body d-flex justify-content-between">
+                            <div class="d-flex flex-column align-items-start">
+                                <h6 class="card-title">${replyUsername}</h6>
+                                <p class="card-text">${reply.reply}</p>
+                            </div>
+                    </div>
+                </div>
+                </div>`;
+          }
+        }
+        let commentUser = getUser(comment.userId);
+        let commentUsername = commentUser ? commentUser.name : "Unknown User";
+
+        const commentCard = `
+           <div>
+             <div class="card  mb-3 mx-auto">
+               <div class="card-body ">
+                    <div class="">
+                        <h5 class="card-title">${commentUsername}</h5>
+                        <p class="card-text">${comment.comment}</p>
+                    </div>
+                    <div class="d-flex align-items-center gap-5 mt-2">
+                        <a
+                            data-bs-toggle="modal"
+                            data-bs-target="#reply_modal"
+                            class="btn btn-success reply-btn d-flex gap-1"
+                            id="${comment.commentId}"
+
+                            ><i class="bi bi-reply-fill"></i>Reply</a
+                        >
+                        <div class="d-flex align-items-center gap-3 ">
+                            <div class="d-flex align-items-center gap-1"><i class="bi bi-arrow-up-circle fs-3 btn upvote-btn" onclick="handleUpvote(${comment.commentId})"></i><span id="upvote-count-${comment.commentId}">${comment.upvoteUserId.length}</span></div>
+                            <div class="d-flex align-items-center gap-1"><i class="bi bi-arrow-down-circle fs-3 btn downvote-btn" onclick="handleDownvote(${comment.commentId})"></i><span id="downvote-count-${comment.commentId}">${comment.downvoteUserId.length}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="replies ">
+                ${repliesHtml}
+            </div>
+            </div>`;
+        return commentCard;
+      }
+
+      function handleUpvote(commentId) {
+        const comment = comments.find((cmt) => cmt.commentId === commentId);
+        if (comment) {
+          const userIndex = comment.upvoteUserId.indexOf(userId);
+          if (userIndex === -1) {
+            comment.upvoteUserId.push(userId);
+            const upvoteCountElement = document.getElementById(
+              `upvote-count-${commentId}`
+            );
+            if (upvoteCountElement) {
+              upvoteCountElement.textContent = comment.upvoteUserId.length;
+            }
+
+            const downvoteIndex = comment.downvoteUserId.indexOf(userId);
+            if (downvoteIndex !== -1) {
+              comment.downvoteUserId.splice(downvoteIndex, 1);
+              // Decrease downvote count
+              const downvoteCountElement = document.getElementById(
+                `downvote-count-${commentId}`
+              );
+              if (downvoteCountElement) {
+                downvoteCountElement.textContent =
+                  comment.downvoteUserId.length;
+              }
+            }
+          }
+        }
+      }
+
+      function displayComments(comments) {
+        for (let i = 0; i < comments.length; i++) {
+          document.getElementById("comments-container").innerHTML +=
+            generateComment(comments[i]);
+        }
+      }
+
+      function updateJsonData(updatedData) {
+        return axios
+          .put(apiUrl, updatedData)
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+
+      function generateCommentId() {
+        return new Date().getTime();
+      }
+
+      $(() => {
+        //add comment
+        $(document).on("click", "#add-submit", function () {
+          var newComment = {
+            userId: userId,
+            commentId: generateCommentId(),
+            comment: $("#commentAdd").val(),
+            replies: [],
+          };
+
+          const countryId = data.countries.findIndex(
+            (country) => country.country === countryName
+          );
+          if (countryId !== -1) {
+            const cityId = data.countries[countryId].cities.findIndex(
+              (city) => city.city === cityName
+            );
+            if (cityId !== -1) {
+              const placeId = data.countries[countryId].cities[
+                cityId
+              ].places.findIndex((place) => place.place === placeName);
+              if (placeId !== -1) {
+                data.countries[countryId].cities[cityId].places[
+                  placeId
+                ].comments.push(newComment);
+                // comments.push(newComment);
+                updateJsonData(data);
+              } else {
+                console.log("place not found");
+              }
+            } else {
+              console.log("city not found");
+            }
+          } else {
+            console.log("country not found");
+          }
+
+          $("#commentAdd").val("");
+          $("#comments-container").empty();
+          displayComments(comments);
+          $("#add_modal").modal("hide");
+        });
+
+        //add reply
+        $(document).on("click", "#reply-submit", function () {
+          var newReply = {
+            userId: userId,
+            reply: $("#replyAdd").val(),
+          };
+          const commentId = parseInt($("#reply_modal").data("commentId"));
+          //   console.log(commentId);
+
+          const countryId = data.countries.findIndex(
+            (country) => country.country === countryName
+          );
+          if (countryId !== -1) {
+            const cityId = data.countries[countryId].cities.findIndex(
+              (city) => city.city === cityName
+            );
+            if (cityId !== -1) {
+              const placeId = data.countries[countryId].cities[
+                cityId
+              ].places.findIndex((place) => place.place === placeName);
+              if (placeId !== -1) {
+                const commentIdx = data.countries[countryId].cities[
+                  cityId
+                ].places[placeId].comments.findIndex(
+                  (comment) => comment.commentId === commentId
+                );
+                if (commentIdx !== -1) {
+                  data.countries[countryId].cities[cityId].places[
+                    placeId
+                  ].comments[commentIdx].replies.push(newReply);
+
+                  //   comments[commentIdx].replies.push(newReply);
+                  console.log(comments);
+                  updateJsonData(data);
+                } else {
+                  console.log("comment not found");
+                }
+              } else {
+                console.log("place not found");
+              }
+            } else {
+              console.log("city not found");
+            }
+          } else {
+            console.log("country not found");
+          }
+
+          $("#replyAdd").val("");
+          $("#comments-container").empty();
+          displayComments(comments);
+          $("#reply_modal").modal("hide");
+        });
+
+        $(document).on("click", ".reply-btn", function () {
+          commentId = $(this).attr("id");
+          $("#reply_modal").data("commentId", commentId);
+        });
+      });
+    </script>
+  </body>
+</html>
