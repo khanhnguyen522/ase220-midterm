@@ -17,14 +17,15 @@
   </head>
   <body>
     <nav
-      class="nav-bar bg-success p-2 font-monospace"
-      style="--bs-bg-opacity: 0.5"
+      class="nav-bar bg-success p-2 font-monospace d-flex"
+      style="--bs-bg-opaCountry: 0.5"
     >
       <div class="container-fluid" id="">
         <a class="navbar-brand fs-2 fw-semibold" href="#"
-          >Specific City <span id="city"></span
+          >Comments <span id="countrycountry_name"></span
         ></a>
       </div>
+      <div class="auth-container d-flex gap-5 align-items-center w-25"></div>
     </nav>
 
     <div
@@ -309,8 +310,42 @@
       function generateCommentId() {
         return new Date().getTime();
       }
+      function checkUserInLocalStorage() {
+        const user = localStorage.getItem("user");
+        const navbar = $(".nav-bar");
+        const authContainer = navbar.find(".auth-container");
+        if (user) {
+          console.log("1");
+          const username = JSON.parse(user).name;
+          authContainer.html(`
+              <div>Hi, ${username}</div>
+              <button id="logoutBtn">Logout</button>
+              `);
+        } else {
+          console.log("2");
+          authContainer.html(`
+               <button id="loginBtn">Login</button>
+              <button id="signupBtn">Sign Up</button>
+              `);
+        }
+      }
+
+      $(document).ready(function () {
+        checkUserInLocalStorage();
+      });
 
       $(() => {
+        $(document).on("click", "#logoutBtn", function () {
+          localStorage.removeItem("user");
+        });
+
+        $(document).on("click", "#loginBtn", function () {
+          showLoginModal();
+        });
+
+        $(document).on("click", "#signupBtn", function () {
+          showSignupModal();
+        });
         //add comment
         $(document).on("click", "#add-submit", function () {
           var newComment = {
