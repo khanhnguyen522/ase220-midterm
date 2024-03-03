@@ -184,7 +184,10 @@
           countryName = getQueryParam("country");
           cityName = getQueryParam("city");
           placeName = getQueryParam("place");
+          console.log(data);
           comments = findComments(countryName, cityName, placeName);
+
+          console.log(comments);
           displayComments(comments);
         })
         .catch(function (err) {
@@ -197,9 +200,7 @@
       }
 
       function findComments(countryName, cityName, placeName) {
-        const country = data.countries.find(
-          (country) => country.country === countryName
-        );
+        const country = data.find((country) => country.country === countryName);
         if (!country) {
           console.log("country not found");
           return;
@@ -262,8 +263,8 @@
                             ><i class="bi bi-reply-fill"></i>Reply</a
                         >
                         <div class="d-flex align-items-center gap-3 ">
-                            <div class="d-flex align-items-center gap-1"><i class="bi bi-arrow-up-circle fs-3 btn upvote-btn" onclick="handleUpvote(${comment.commentId})"></i><span id="upvote-count-${comment.commentId}">${comment.upvoteUserId.length}</span></div>
-                            <div class="d-flex align-items-center gap-1"><i class="bi bi-arrow-down-circle fs-3 btn downvote-btn" onclick="handleDownvote(${comment.commentId})"></i><span id="downvote-count-${comment.commentId}">${comment.downvoteUserId.length}</span></div>
+                            <div class="d-flex align-items-center gap-1"><i class="bi bi-arrow-up-circle fs-3 btn upvote-btn" onclick="handleUpvote(${comment.commentId})"></i><span id="upvote-count-${comment.commentId}">${comment?.upvoteUserId?.length}</span></div>
+                            <div class="d-flex align-items-center gap-1"><i class="bi bi-arrow-down-circle fs-3 btn downvote-btn" onclick="handleDownvote(${comment.commentId})"></i><span id="downvote-count-${comment.commentId}">${comment?.downvoteUserId?.length}</span></div>
                         </div>
                     </div>
                 </div>
@@ -278,29 +279,12 @@
       function handleUpvote(commentId) {
         const comment = comments.find((cmt) => cmt.commentId === commentId);
         if (comment) {
-          const userIndex = comment.upvoteUserId.indexOf(userId);
-          if (userIndex === -1) {
-            comment.upvoteUserId.push(userId);
-            const upvoteCountElement = document.getElementById(
-              `upvote-count-${commentId}`
-            );
-            if (upvoteCountElement) {
-              upvoteCountElement.textContent = comment.upvoteUserId.length;
-            }
+        }
+      }
 
-            const downvoteIndex = comment.downvoteUserId.indexOf(userId);
-            if (downvoteIndex !== -1) {
-              comment.downvoteUserId.splice(downvoteIndex, 1);
-              // Decrease downvote count
-              const downvoteCountElement = document.getElementById(
-                `downvote-count-${commentId}`
-              );
-              if (downvoteCountElement) {
-                downvoteCountElement.textContent =
-                  comment.downvoteUserId.length;
-              }
-            }
-          }
+      function handleDownvote(commentId) {
+        const comment = comments.find((cmt) => cmt.commentId === commentId);
+        if (comment) {
         }
       }
 
@@ -333,24 +317,26 @@
             userId: userId,
             commentId: generateCommentId(),
             comment: $("#commentAdd").val(),
+            upvoteUserId: [],
+            downvoteUserId: [],
             replies: [],
           };
 
-          const countryId = data.countries.findIndex(
+          const countryId = data.findIndex(
             (country) => country.country === countryName
           );
           if (countryId !== -1) {
-            const cityId = data.countries[countryId].cities.findIndex(
+            const cityId = data[countryId].cities.findIndex(
               (city) => city.city === cityName
             );
             if (cityId !== -1) {
-              const placeId = data.countries[countryId].cities[
-                cityId
-              ].places.findIndex((place) => place.place === placeName);
+              const placeId = data[countryId].cities[cityId].places.findIndex(
+                (place) => place.place === placeName
+              );
               if (placeId !== -1) {
-                data.countries[countryId].cities[cityId].places[
-                  placeId
-                ].comments.push(newComment);
+                data[countryId].cities[cityId].places[placeId].comments.push(
+                  newComment
+                );
                 // comments.push(newComment);
                 updateJsonData(data);
               } else {
@@ -378,27 +364,27 @@
           const commentId = parseInt($("#reply_modal").data("commentId"));
           //   console.log(commentId);
 
-          const countryId = data.countries.findIndex(
+          const countryId = data.findIndex(
             (country) => country.country === countryName
           );
           if (countryId !== -1) {
-            const cityId = data.countries[countryId].cities.findIndex(
+            const cityId = data[countryId].cities.findIndex(
               (city) => city.city === cityName
             );
             if (cityId !== -1) {
-              const placeId = data.countries[countryId].cities[
-                cityId
-              ].places.findIndex((place) => place.place === placeName);
+              const placeId = data[countryId].cities[cityId].places.findIndex(
+                (place) => place.place === placeName
+              );
               if (placeId !== -1) {
-                const commentIdx = data.countries[countryId].cities[
-                  cityId
-                ].places[placeId].comments.findIndex(
+                const commentIdx = data[countryId].cities[cityId].places[
+                  placeId
+                ].comments.findIndex(
                   (comment) => comment.commentId === commentId
                 );
                 if (commentIdx !== -1) {
-                  data.countries[countryId].cities[cityId].places[
-                    placeId
-                  ].comments[commentIdx].replies.push(newReply);
+                  data[countryId].cities[cityId].places[placeId].comments[
+                    commentIdx
+                  ].replies.push(newReply);
 
                   //   comments[commentIdx].replies.push(newReply);
                   console.log(comments);

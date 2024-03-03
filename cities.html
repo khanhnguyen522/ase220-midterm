@@ -12,58 +12,46 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
+    <link rel="stylesheet" href="cities.css">
 
     <title>Popular Cities Destination</title>
   </head>
   <body>
+    <div class="makeItFixed">
     <nav
       class="nav-bar bg-success p-2 font-monospace"
       style="--bs-bg-opacity: 0.5"
     >
       <div class="container-fluid" id="">
-        <a class="navbar-brand fs-2 fw-semibold" href="#"
-          >Popular Cities Of <span id="countryName"></span
-        ></a>
+        <a class="navbar-brand fs-2 fw-semibold" href="#">Popular Cities Of <span id="countryName"></span></a>
       </div>
     </nav>
 
     <div
       class="d-flex justify-content-center mt-4 fw-semibold fs-2 pt-3 font-monospace"
     >
-      Popular Cities Destination
+    Popular Cities Destination
     </div>
-
+   </div> 
     <div class="d-flex justify-content-center font-monospace">
-      <div class="container text-center m-5">
-        <div class="container text-end m-3">
-          <nav class="navbar bg-body-tertiary">
-            <div class="container-fluid">
-              <form class="d-flex" role="search">
-                <input
-                  class="form-control me-2"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                />
-                <button class="btn btn-outline-success" type="submit">
-                  <i class="fas fa-search"></i>
-                </button>
-              </form>
-              <!-- Button Links -->
-              <div class="text-end">
-                <a
-                  data-bs-toggle="modal"
-                  data-bs-target="#add_modal"
-                  class="btn btn-success me-2"
-                  id="btn-add"
-                  >Add City</a
-                >
-                <a class="btn btn-success" id="btn-favorite">Favorites</a>
-              </div>
-            </div>
-          </nav>
-        </div>
-
+      <div class="container text-cente m-5">
+        <div class = "container text-end m-3">
+            <nav class="navbar bg-body-tertiary sticky-top">
+                <div class="container-fluid">
+                  <form class="d-flex" role="search">
+                    <input id="citySearchInput" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">
+                        <i class="fas fa-search"></i> 
+                    </button>
+                  </form>
+                  <!-- Button Links -->
+                  <div class="text-end">
+                    <a data-bs-toggle="modal" data-bs-target="#add_modal" class="btn btn-success me-2" id="btn-add">Add City</a>
+                    <a class="btn btn-success" id="btn-favorite">Favorites</a>
+                  </div>
+                </div>
+              </nav>
+              
         <div
           id="pets-container"
           class="row row-cols-1 row-cols-sm-2 row-cols-lg-3"
@@ -75,90 +63,55 @@
 
       <!-- Login and signup modal --------------------------------------------------------------->
       <div
-        class="modal fade"
-        id="info_modal"
-        data-bs-backdrop="static"
-        data-bs-keyboard="false"
-        tabindex="-1"
-        aria-labelledby="staticBackdropLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <!--Header of Modal-->
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                <div class="d-flex">
-                  <h5>Log in or sign up</h5>
-                </div>
-              </h1>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <!--Modal Body-->
-            <div class="modal-body">
-              <h5>Welcome</h5>
-              <form class="row g-3">
+      class="modal fade"
+      id="info_modal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+     >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <!--Header of Modal-->
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">
+              <div class="d-flex">
+                <h5 > Log in or sign up</h5>
+              </div>
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <!--Modal Body-->
+          <div class="modal-body">
+            <h5> Welcome</h5>
+            <form class="row g-3">
                 <div class="col-md-4">
-                  <label for="validationDefault01" class="form-label"
-                    >First name</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="validationDefault01"
-                    value=" "
-                    required
-                  />
+                  <label for="validationDefault01" class="form-label">First name</label>
+                  <input type="text" class="form-control" id="validationDefault01" value=" " required>
                 </div>
                 <div class="col-md-4">
-                  <label for="validationDefault02" class="form-label"
-                    >Last name</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="validationDefault02"
-                    value=" "
-                    required
-                  />
+                  <label for="validationDefault02" class="form-label">Last name</label>
+                  <input type="text" class="form-control" id="validationDefault02" value=" " required>
                 </div>
                 <div class="col-md-4">
-                  <label for="validationDefaultUsername" class="form-label"
-                    >Username</label
-                  >
+                  <label for="validationDefaultUsername" class="form-label">Username</label>
                   <div class="input-group">
-                    <span class="input-group-text" id="inputGroupPrepend2"
-                      >@</span
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="validationDefaultUsername"
-                      aria-describedby="inputGroupPrepend2"
-                      required
-                    />
+                    <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                    <input type="text" class="form-control" id="validationDefaultUsername" aria-describedby="inputGroupPrepend2" required>
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <label for="validationDefault03" class="form-label"
-                    >City</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="validationDefault03"
-                    required
-                  />
+                  <label for="validationDefault03" class="form-label">City</label>
+                  <input type="text" class="form-control" id="validationDefault03" required>
                 </div>
                 <div class="col-md-3">
-                  <label for="validationDefault04" class="form-label"
-                    >State</label
-                  >
+                  <label for="validationDefault04" class="form-label">State</label>
                   <select class="form-select" id="validationDefault04" required>
                     <option selected disabled value="">Choose...</option>
                     <option value="AL">Alabama</option>
@@ -167,28 +120,16 @@
                     <option value="AR">Arkansas</option>
                     <option value="WI">Wisconsin</option>
                     <option value="WY">Wyoming</option>
+
                   </select>
                 </div>
                 <div class="col-md-3">
-                  <label for="validationDefault05" class="form-label"
-                    >Zip</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="validationDefault05"
-                    required
-                  />
+                  <label for="validationDefault05" class="form-label">Zip</label>
+                  <input type="text" class="form-control" id="validationDefault05" required>
                 </div>
                 <div class="col-12">
                   <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="invalidCheck2"
-                      required
-                    />
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
                     <label class="form-check-label" for="invalidCheck2">
                       Agree to terms and conditions
                     </label>
@@ -198,21 +139,27 @@
                   <button class="btn btn-primary" type="submit">Sign Up</button>
                 </div>
               </form>
-            </div>
-            <!--Modal Footer-->
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-success"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-            </div>
+          </div>
+          <!--Modal Footer-->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-success"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            
           </div>
         </div>
       </div>
+    </div>
 
+
+
+
+
+      
       <!--UPDATE MODAL ------------------------------------------------------->
       <div
         class="modal fade"
@@ -243,24 +190,16 @@
                 <form>
                   <div class="mb-3">
                     <label for="inputName" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="inputName" />
+                    <input type="text" class="form-control" id="inputName"/>
                   </div>
 
                   <div class="mb-3">
-                    <label for="inputDestination" class="form-label"
-                      >Tourist Destinations</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="inputDestination"
-                    />
+                    <label for="inputDestination" class="form-label">Tourist Destinations</label>
+                    <input type="text" class="form-control" id="inputDestination" />
                   </div>
 
                   <div class="mb-3">
-                    <label for="inputVisit" class="form-label"
-                      >Best Time to Visit</label
-                    >
+                    <label for="inputVisit" class="form-label">Best Time to Visit</label>
                     <input type="text" class="form-control" id="inputVisit" />
                   </div>
 
@@ -270,20 +209,16 @@
                   </div>
 
                   <div class="mb-3 d-flex gap-2">
-                    <label for="inputTemperature" class="col-form-label"
-                      >Average Temperature:</label
-                    >
+                    <label for="inputTemperature" class="col-form-label">Average Temperature:</label>
                     <div class="d-flex align-items-center gap-4">
                       <div class="form-check gap-2">
                         <input
                           type="text"
                           class="form-control"
                           id="HighTemperatureAdd"
-                          text="High Temperature"
+                          text = "High Temperature"
                         />
-                        <label for="High" class="form-control"
-                          >High Temperature</label
-                        >
+                        <label for="High" class="form-control">High Temperature</label>
                       </div>
                       <div class="form-check gap-2">
                         <input
@@ -298,6 +233,7 @@
                       </div>
                     </div>
                   </div>
+                  
 
                   <div class="mb-3">
                     <label for="inputAge" class="form-label">ID</label>
@@ -328,124 +264,106 @@
 
       <!--Add Modal-->
       <div
-        class="modal fade"
-        id="add_modal"
-        data-bs-backdrop="static"
-        data-bs-keyboard="false"
-        tabindex="-1"
-        aria-labelledby="staticBackdropLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <!--Modal Header-->
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                Add Your Favorite City besides this listed-city
-              </h1>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <!--Modal Body-->
-            <div class="modal-body">
-              <div class="card-body d-flex flex-column">
+      class="modal fade"
+      id="add_modal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!--Modal Header-->
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">
+              Add Your Favorite City besides this listed-city
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <!--Modal Body-->
+          <div class="modal-body">
+            <div class="card-body d-flex flex-column">
                 <form>
-                  <div class="mb-3">
-                    <label for="inputName" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="inputNameAdd" />
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="inputDestination" class="form-label"
-                      >Tourist Destinations</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="inputDestinationAdd"
-                    />
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="inputVisit" class="form-label"
-                      >Best Time to Visit</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="inputVisitAdd"
-                    />
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="inputRating" class="form-label">Ratings</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="inputRatingAdd"
-                    />
-                  </div>
-
-                  <div class="mb-3 d-flex gap-2">
-                    <label for="inputTemperature" class="col-form-label"
-                      >Average Temperature:</label
-                    >
-                    <div class="d-flex align-items-center gap-4">
-                      <div class="form-check gap-2">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="HighTemperatureAddd"
-                          text="High Temperature"
-                        />
-                        <label for="High" class="form-control"
-                          >High Temperature</label
-                        >
-                      </div>
-                      <div class="form-check gap-2">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="LowTemperatureAddd"
-                          text="Low Temperature"
-                        />
-                        <label for="Low" class="form-control"
-                          >Low Temperature</label
-                        >
+                    <div class="mb-3">
+                      <label for="inputName" class="form-label">Name</label>
+                      <input type="text" class="form-control" id="inputNameAdd"/>
+                    </div>
+  
+                    <div class="mb-3">
+                      <label for="inputDestination" class="form-label">Tourist Destinations</label>
+                      <input type="text" class="form-control" id="inputDestinationAdd" />
+                    </div>
+  
+                    <div class="mb-3">
+                      <label for="inputVisit" class="form-label">Best Time to Visit</label>
+                      <input type="text" class="form-control" id="inputVisitAdd" />
+                    </div>
+  
+                    <div class="mb-3">
+                      <label for="inputRating" class="form-label">Ratings</label>
+                      <input type="text" class="form-control" id="inputRatingAdd" />
+                    </div>
+  
+                    <div class="mb-3 d-flex gap-2">
+                      <label for="inputTemperature" class="col-form-label">Average Temperature:</label>
+                      <div class="d-flex align-items-center gap-4">
+                        <div class="form-check gap-2">
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="HighTemperatureAddd"
+                            text = "High Temperature"
+                          />
+                          <label for="High" class="form-control">High Temperature</label>
+                        </div>
+                        <div class="form-check gap-2">
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="LowTemperatureAddd"
+                            text="Low Temperature"
+                          />
+                          <label for="Low" class="form-control"
+                            >Low Temperature</label
+                          >
+                        </div>
                       </div>
                     </div>
-                  </div>
+                    
+  
+                    <div class="mb-3">
+                      <label for="inputAge" class="form-label">ID</label>
+                      <input type="text" class="form-control" id="idAdd" />
+                    </div>
+  
+                    <div class="mb-3">
+                      <label for="inputDescription" class="form-label"
+                        >Description</label
+                      >
+                      <textarea
+                        class="form-control"
+                        id="inputDescriptionAdd"
+                        rows="3"
+                      ></textarea>
+                    </div>
+                  </form>
 
-                  <div class="mb-3">
-                    <label for="inputAge" class="form-label">ID</label>
-                    <input type="text" class="form-control" id="idAdd" />
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="inputDescription" class="form-label"
-                      >Description</label
-                    >
-                    <textarea
-                      class="form-control"
-                      id="inputDescriptionAdd"
-                      rows="3"
-                    ></textarea>
-                  </div>
-                </form>
-              </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" id="add-submit" class="btn btn-success">
-                Add City
-              </button>
-            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="add-submit" class="btn btn-success">
+              Add City
+            </button>
           </div>
         </div>
       </div>
+    </div>
     </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
@@ -462,296 +380,351 @@
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
       crossorigin="anonymous"
     ></script>
-    <script
-      src="https://kit.fontawesome.com/118e30abce.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://kit.fontawesome.com/118e30abce.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
+
+     
+     
       //Using jquery and ajax methods to get the JSON file from the jsonBlob server.
-      let Cities = "";
+      let Cities = [];
+      let countries = []
+      let country = "";
       var offset = 0;
       var rpp = 9;
       var pages = 0;
       var editingCityId = -1;
       var addingCityId = -1;
       var imageFile = "";
-      $(document).ready(function () {
-        $.getJSON(
-          "https://jsonblob.com/api/1212552821139693568",
-          function (data) {
-            Cities = data;
-            console.log(Cities);
-            //PAGE BASED PAGINATION
-            displayCards(Cities);
-            displayPageBasedPagination(Cities);
-            function displayPageBasedPagination(Cities) {
-              rpp = 9;
-              pages = Math.ceil(Cities.length / rpp);
-              document.querySelector("#actions").innerHTML = "";
-              for (let i = 0; i < pages; i++) {
-                let loadMoreButton = document.createElement("button");
-                loadMoreButton.setAttribute("data-page", i + 1);
-                loadMoreButton.classList.add("btn");
-                loadMoreButton.classList.add("page-btn");
+    
 
-                if (i * rpp === offset) {
-                  loadMoreButton.classList.add("btn-success");
-                  loadMoreButton.classList.add("disabled");
-                } else {
-                  loadMoreButton.classList.add("btn-outline-success");
-                }
-                loadMoreButton.classList.add("m-1");
-                loadMoreButton.innerText = i + 1;
-                loadMoreButton.addEventListener("click", function (e) {
-                  let buttons = document.querySelectorAll(".page-btn");
-                  for (let i = 0; i < buttons.length; i++) {
-                    buttons[i].classList.remove("disabled");
-                    buttons[i].classList.remove("btn-success");
-                    buttons[i].classList.add("btn-outline-success");
-                  }
-                  offset = i * rpp;
-                  e.target.classList.remove("btn-outline-success");
-                  e.target.classList.add("btn-success");
-                  e.target.classList.add("disabled");
-                  document.getElementById("pets-container").innerHTML = "";
-                  displayCards(Cities);
-                });
-                document.querySelector("#actions").append(loadMoreButton);
+      function getQueryParam(key) {
+        let queryParams = new URLSearchParams(window.location.search);
+        return queryParams.has(key) ? queryParams.get(key) : null;
+      }
+
+      function findCitiesByCountry(countryName){
+        let foundCities = [];
+        countries.forEach(country=>{
+          if(country.country.toLowerCase() === countryName.toLowerCase()){
+            foundCities = country.cities
+          }
+        })
+        return foundCities
+      }
+
+      $(document).ready(function(){
+        $.getJSON("https://jsonblob.com/api/1213499724727705600", function(data ) {
+          countries = data;
+          country = getQueryParam("country");
+          Cities = findCitiesByCountry(country);
+
+      //PAGE BASED PAGINATION
+          displayCards(Cities);
+          displayPageBasedPagination(Cities);
+          function displayPageBasedPagination(Cities) {
+            rpp = 9;
+            pages = Math.ceil(Cities.length / rpp);
+            document.querySelector("#actions").innerHTML = "";
+            for (let i = 0; i < pages; i++) {
+              let loadMoreButton = document.createElement("button");
+              loadMoreButton.setAttribute("data-page", i + 1);
+              loadMoreButton.classList.add("btn");
+              loadMoreButton.classList.add("page-btn");
+
+              if (i * rpp === offset) {
+                loadMoreButton.classList.add("btn-success");
+                loadMoreButton.classList.add("disabled");
+              } else {
+                loadMoreButton.classList.add("btn-outline-success");
               }
+              loadMoreButton.classList.add("m-1");
+              loadMoreButton.innerText = i + 1;
+              loadMoreButton.addEventListener("click", function (e) {
+                let buttons = document.querySelectorAll(".page-btn");
+                for (let i = 0; i < buttons.length; i++) {
+                  buttons[i].classList.remove("disabled");
+                  buttons[i].classList.remove("btn-success");
+                  buttons[i].classList.add("btn-outline-success");
+                }
+                offset = i * rpp;
+                e.target.classList.remove("btn-outline-success");
+                e.target.classList.add("btn-success");
+                e.target.classList.add("disabled");
+                document.getElementById("pets-container").innerHTML = "";
+                displayCards(Cities);
+              });
+              document.querySelector("#actions").append(loadMoreButton);
             }
+          }
 
-            function generateCard(City) {
-              const cardHTML = `
-              <div class="col cards my-2" id = ${City.id}>
-                  <span class="card h-100">
+          function generateCard(City) {
+            console.log(City)
+             const cardHTML = `
+              <div class="col cards my-2" id = ${City.cityId}>
+                  <span class="card h-100 ">
                     <div class="position-relative">
-                      <img id="avatar" src="${City.avatar}" class="card-img-top" alt="image of ${City.name}" />
-                      <button class="btn position-absolute top-0 end-0" onclick="addToFavorites('${City.id}')">
-                        <div data-bs-toggle="modal" data-bs-target="#info_modal">
-                        <i class="fa-solid fa-heart " style="color: #919aac;"></i>
-                        <
-                     </button>
-                    </div>
+                        <div id="carouselExample${City.cityId}" class="carousel slide">
+                           <div class="carousel-inner rounded">
+
+                              <div class="carousel-item active">
+                                  <img src="${City.avatar[0]}" class="d-block w-100"  alt="image of ${City.city}">
+                                </div>
+
+                              <div class="carousel-item">
+                                 <img src="${City.avatar[1]}" class="d-block w-100"   alt="image of ${City.city}">
+                                </div>
+
+                              
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample${City.cityId}" data-bs-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Previous</span>
+                            </button>
+            
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample${City.cityId}" data-bs-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>                                                   
+                        <button class="btn position-absolute top-0 end-0 heart-button" data-bs-toggle="modal" data-bs-target="#info_modal">
+                          <i class="fa-solid fa-heart" ></i>
+                       </button>
+                     </div>
 
                     <div class="card-body d-flex flex-column" style="text-align: left;">
                       <div class="d-flex justify-content-between">
-                      <div class="d-flex"> <h5  class="card-title fw-bold " style="font-size: 24px;">${City.name}</h5>
-                        
-                        </div>
+                      <div class="d-flex"> <h5  class="card-title fw-bold " style="font-size: 24px;">${City.city}</h5>
+                    </div>
                      <div>
                         <i class="fa-solid fa-star " ></i> ${City.ratings}
                         </div>
                       </div>
+                      
                       <ul class="list-unstyled">
-                        <li><strong>Average Temperature</strong>
-                           <ul><em>High Temperature:</em> ${City.high}</ul>
-                           <ul><em>Low Temperature:</em> ${City.low}</ul>
+                        <li>${City.high} // L: ${City.low}
                         </li>
-                        <li><strong>Tourist Destination:</strong> ${City.destinations}</li>
-                        <li><strong>Best Time To Visit: </strong>${City.best_time_to_visit}</li>
-                        <li id="id"><strong>ID:</strong> ${City.id}</li
+                        <li><em>Destination:</em> ${City.destinations}</li>
+                        <li><em>Ideal Season for Travel:</em> ${City.best_time_to_visit}</li>
+                        <li id="id">ID: ${City.cityId}</li>
                       </ul>
-                    </div>
-                    <div class="d-flex justify-content-end gap-2 m-3">
+                     </div>
+                     <div class="d-flex justify-content-end gap-2 m-3">
+                     <a class="btn btn-success" href="popularplaces.html?country=${country}&city=${City.city}">More details</a>
                       <a data-bs-toggle="modal" data-bs-target="#update_modal"
-                      class="btn btn-success" id="btn-edit">
+                      class="btn btn-dark" id="btn-edit">
                       <i class="bi bi-pencil-square"></i></a>
                       <a
-                      class="btn btn-danger d-flex align-items-center">
+                      class="btn btn-dark d-flex align-items-center">
                       <i class="bi bi-trash3-fill"></i></a>
                     </div>
                   </span>
               </div>`;
-              return cardHTML;
+            return cardHTML;
+          }
+
+          function displayCards(Cities) {
+            for (let i = offset; i < Math.min(offset + rpp, Cities.length); i++) {
+              document.getElementById("pets-container").innerHTML += generateCard(
+                Cities[i]
+              );
             }
+          }
+//Populate the update model when update button is clicked handled later.
+          function populateUpdateModal(City) {
+            document.getElementById("inputName").value = City.name;
+            document.getElementById("inputDestination").value = City.destinations;
+            document.getElementById("inputVisit").value = City.best_time_to_visit;
+            document.getElementById("inputRating").value = City.ratings;
+            document.getElementById("HighTemperatureAdd").value = City.high;
+            document.getElementById("LowTemperatureAdd").value = City.low;
+            document.getElementById("inputDescription").value = City.description;
+          }
 
-            function displayCards(Cities) {
-              for (
-                let i = offset;
-                i < Math.min(offset + rpp, Cities.length);
-                i++
-              ) {
-                document.getElementById("pets-container").innerHTML +=
-                  generateCard(Cities[i]);
-              }
-            }
-            //Populate the update model when update button is clicked handled later.
-            function populateUpdateModal(City) {
-              document.getElementById("inputName").value = City.name;
-              document.getElementById("inputDestination").value =
-                City.destinations;
-              document.getElementById("inputVisit").value =
-                City.best_time_to_visit;
-              document.getElementById("inputRating").value = City.ratings;
-              document.getElementById("HighTemperatureAdd").value = City.high;
-              document.getElementById("LowTemperatureAdd").value = City.low;
-              document.getElementById("inputDescription").value =
-                City.description;
-            }
+          
 
-            function getCitiesById(id) {
-              return Cities.find((City) => City.id === id); //return the pet whose id is passed as parameter
-            }
+          function getCitiesById(id) {
+            return Cities.find((City) => City.id === id);//return the pet whose id is passed as parameter
+          }
 
-            // listen to event when click on  INFORMATION icon (vanilla js)
-            document
-              .getElementById("info_modal")
-              .addEventListener("show.bs.modal", function (event) {
-                const modalDoc = event.relatedTarget;
-                const id =
-                  modalDoc.parentNode.parentNode.querySelector(
-                    'ul li[id="id"]'
-                  );
-                const City = getCitiesById(id.innerText.split(" ")[1]);
-                populateInfoModal(City);
-              });
+      // listen to event when click on  INFORMATION icon (vanilla js)
+          document
+            .getElementById("info_modal")
+            .addEventListener("show.bs.modal", function (event) {
+              const modalDoc = event.relatedTarget;
+              const id =
+                modalDoc.parentNode.parentNode.querySelector('ul li[id="id"]');
+              const City = getCitiesById(id.innerText.split(" ")[1]);
+              populateInfoModal(City);
+            });
 
-            $(() => {
-              //Delete the pet and put the pets data structure to the jsonBlob array.
-              $(document).on("click", ".btn-danger", function () {
-                let parentDiv = $(this).parent().parent().parent();
-                let parentId = parentDiv.attr("id");
-                const index = Cities.findIndex((City) => City.id === parentId);
-                console.log(index);
-                if (index !== -1) {
-                  Cities.splice(index, 1);
-                  console.log(Cities);
-                  $.ajax({
-                    type: "PUT",
-                    url: "https://jsonblob.com/api/1212552821139693568",
-                    data: JSON.stringify(Cities),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (xhr, data, response) {
-                      console.log(xhr);
-                      console.log(data);
-                      console.log(response);
-                      console.log(response.getAllResponseHeaders());
-                    },
-                    error: function (errMsg) {
-                      alert(errMsg);
-                    },
-                  });
-                  $("#pets-container").empty();
-                  displayCards(Cities);
-                  displayPageBasedPagination(Cities);
-                }
-              });
-              //populate pet information as default value on update modal
-              $(document).on("click", "#btn-edit", function () {
-                editCityIdText = $(this)
-                  .parents()
-                  .parents()
-                  .eq(1)
-                  .find("div")
-                  .find("ul")
-                  .find("li[id]")
-                  .text();
-                editingCityId = editCityIdText.split(" ")[1];
-                const editingCity = getCitiesById(editingCityId);
-                populateUpdateModal(editingCity);
-              });
-
-              //update pet information when the edit form is submitted
-              $(document).on("click", "#edit-submit", function () {
-                const editingCity = getCitiesById(editingCityId);
-                var updatedCity = {
-                  id: editingCity.id,
-                  avatar: editingCity.avatar,
-                  name: $("#inputName").val() || editingCity.name,
-                  destinations:
-                    $("#inputDestination").val() || editingCity.destinations,
-                  best_time_to_visit:
-                    $("#inputVisit").val() || editingCity.best_time_to_visit,
-                  ratings: $("#inputRating").val() || editingCity.ratings,
-                  high: $("#HighTemperatureAdd").val() || editingCity.high,
-                  low: $("#LowTemperatureAdd").val() || editingCity.low,
-                  description:
-                    $("#inputDescription").val() || editingCity.description,
-                };
-                //update UI depend on new pets array stored in jsonBlob
-                const index = Cities.findIndex(
-                  (City) => City.id === editingCityId
-                );
-                if (index !== -1) {
-                  Cities[index] = updatedCity;
-                  $("#pets-container").empty();
-                  displayCards(Cities);
-                }
-                $("#update_modal").modal("hide");
+      
+          $(() => {
+            //Delete the pet and put the pets data structure to the jsonBlob array.
+            $(document).on("click", ".btn-danger", function () {
+              let parentDiv = $(this).parent().parent().parent();
+              let parentId = parentDiv.attr("id");
+              const index = Cities.findIndex((City) => City.id === parentId);
+              console.log(index);
+              if (index !== -1) {
+                Cities.splice(index, 1);
+                console.log(Cities);
                 $.ajax({
-                  type: "PUT",
-                  url: "https://jsonblob.com/api/1212552821139693568",
-                  data: JSON.stringify(Cities),
-                  contentType: "application/json; charset=utf-8",
-                  dataType: "json",
-                  success: function (xhr, data, response) {
-                    console.log(xhr);
-                    console.log(data);
-                    console.log(response);
-                    console.log(response.getAllResponseHeaders());
-                  },
-                  error: function (errMsg) {
-                    alert(errMsg);
-                  },
-                });
-              });
-
-              //This is the section where add pet button is handled.
-              //upload the image file from the user and add it to the jsonBlob.
-              $("#CityImageAdd").change(function (e) {
-                const file = e.target.files[0];
-                const reader = new FileReader();
-                reader.onload = function () {
-                  imageDataUrl = reader.result;
-                };
-                reader.readAsDataURL(file);
-                const filePath = $("#petImageAdd").val().substring(12);
-                imageFile = `${"../assets/"}${filePath}`;
-                console.log(imageFile);
-              });
-              //When add pet button is clicked we add the new card to the pets-container.
-              $(document).on("click", "#add-submit", function () {
-                var addingCity = {
-                  id: $("#idAdd").val(),
-                  avatar: imageFile,
-                  name: $("#inputNameAdd").val(),
-                  destinations: $("#inputDestinationAdd").val(),
-                  best_time_to_visit: $("#inputVisitAdd").val(),
-                  ratings: $("#inputRatingAdd").val(),
-                  high: $("#HighTemperatureAdd").val(),
-                  low: $("#LowTemperatureAdd").val(),
-                  description: $("#inputDescriptionAdd").val(),
-                };
-                //update UI depend on new pets array stored in local storage
-                //Using unshift method to add the new pet in index 0.
-                Cities.unshift(addingCity);
+                        type: "PUT",
+                        url: "https://jsonblob.com/api/1213499724727705600",
+                        data: JSON.stringify(Cities),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                      success: function(xhr,data,response){
+                            console.log(xhr);
+                            console.log(data);
+                            console.log(response);
+                            console.log(response.getAllResponseHeaders());
+                        },
+                        error: function(errMsg) {
+                            alert(errMsg);
+                        }
+                      });
                 $("#pets-container").empty();
                 displayCards(Cities);
                 displayPageBasedPagination(Cities);
-                $("#add_modal").modal("hide");
-                $.ajax({
-                  type: "PUT",
-                  url: "https://jsonblob.com/api/1212552821139693568",
-                  data: JSON.stringify(Cities),
-                  contentType: "application/json; charset=utf-8",
-                  dataType: "json",
-                  success: function (xhr, data, response) {
-                    console.log(xhr);
-                    console.log(data);
-                    console.log(response);
-                    console.log(response.getAllResponseHeaders());
-                  },
-                  error: function (errMsg) {
-                    alert(errMsg);
-                  },
-                });
-              });
+              }
             });
-          }
-        );
-      });
-    </script>
+            //populate pet information as default value on update modal
+            $(document).on("click", "#btn-edit", function () {
+              editCityIdText = $(this)
+                .parents()
+                .parents()
+                .eq(1)
+                .find("div")
+                .find("ul")
+                .find("li[id]")
+                .text();
+              editingCityId = editCityIdText.split(" ")[1];
+              const editingCity = getCitiesById(editingCityId);
+              console.log('Editing City:', editingCity);
+              if (editingCity) {
+              populateUpdateModal(editingCity);
+            } else {
+    console.error('City not found for ID:', editingCityId);
+    // Optionally, handle this case with user feedback
+  }
+            });
+
+            //update pet information when the edit form is submitted
+            $(document).on("click", "#edit-submit", function () {
+              const editingCity = getCitiesById(editingCityId);
+              var updatedCity = {
+                id: editingCity.id,
+                avatar: editingCity.avatar,
+                name: $("#inputName").val() || editingCity.name,
+                destinations: $("#inputDestination").val() || editingCity.destinations,
+                best_time_to_visit: $("#inputVisit").val() || editingCity.best_time_to_visit,
+                ratings: $("#inputRating").val() || editingCity.ratings,
+                high: $("#HighTemperatureAdd").val() || editingCity.high,
+                low: $("#LowTemperatureAdd").val() || editingCity.low,
+                description: $("#inputDescription").val() || editingCity.description,
+              };
+              //update UI depend on new pets array stored in jsonBlob
+              const index = Cities.findIndex((City) => City.id === editingCityId);
+              if (index !== -1) {
+                Cities[index] = updatedCity;
+              $("#pets-container").empty();
+              displayCards(Cities);
+              }
+              $("#update_modal").modal("hide");
+              $.ajax({
+                        type: "PUT",
+                        url: "https://jsonblob.com/api/1213499724727705600",
+                        data: JSON.stringify(Cities),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                      success: function(xhr,data,response){
+                            console.log(xhr);
+                            console.log(data);
+                            console.log(response);
+                            console.log(response.getAllResponseHeaders());
+                        },
+                        error: function(errMsg) {
+                            alert(errMsg);
+                        }
+                      });
+            });
+
+            //This is the section where add pet button is handled.
+            //upload the image file from the user and add it to the jsonBlob.
+            $('#CityImageAdd').change(function(e){
+              const file = e.target.files[0];
+              const reader = new FileReader();
+              reader.onload = function(){
+                imageDataUrl = reader.result;
+              };
+              reader.readAsDataURL(file);
+              const filePath= $("#petImageAdd").val().substring(12);
+              imageFile = `${"../assets/"}${filePath}`;
+              console.log(imageFile);
+            })
+            //When add pet button is clicked we add the new card to the pets-container.
+            $(document).on("click", "#add-submit", function () {
+              var addingCity = {
+                id: $("#idAdd").val(),
+                avatar: imageFile,
+                name: $("#inputNameAdd").val(),
+                destinations: $("#inputDestinationAdd").val(),
+                best_time_to_visit: $("#inputVisitAdd").val(),
+                ratings: $("#inputRatingAdd").val(),
+                high: $("#HighTemperatureAdd").val(),
+                low: $("#LowTemperatureAdd").val(),
+                description: $("#inputDescriptionAdd").val(),
+              };
+              //update UI depend on new pets array stored in local storage
+              //Using unshift method to add the new pet in index 0.
+              Cities.unshift(addingCity);
+              $("#pets-container").empty();
+              displayCards(Cities);
+              displayPageBasedPagination(Cities);
+              $("#add_modal").modal("hide");
+              $.ajax({
+                        type: "PUT",
+                        url: "https://jsonblob.com/api/1213499724727705600",
+                        data: JSON.stringify(Cities),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                      success: function(xhr,data,response){
+                            console.log(xhr);
+                            console.log(data);
+                            console.log(response);
+                            console.log(response.getAllResponseHeaders());
+                        },
+                        error: function(errMsg) {
+                            alert(errMsg);
+                        }
+                      });
+            });
+          });
+    });
+  });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.getElementById('citySearchInput'); // Select the search input
+  const citiesArray = []; // Array to store matching city names
+
+  searchInput.addEventListener('input', function() {
+    const searchValue = searchInput.value.trim().toLowerCase(); // Get the trimmed and lowercase search input value
+
+    citiesArray.length = 0; // Clear the citiesArray before populating it with matching city names
+
+    for (let i = 0; i < Cities.length; i++) {
+      if (Cities[i].name.toLowerCase().includes(searchValue)) {
+        citiesArray.push(Cities[i].name); // Add the matching city name to the array
+        // You can perform any additional actions if a matching city is found
+      }
+    }
+
+    console.log('Matching Cities:', citiesArray); // Log the array of matching city names
+  });
+});
+</script>
   </body>
 </html>
