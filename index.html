@@ -88,9 +88,10 @@
           </div>
           
           <div class="col-12">
-            <button class="btn btn-primary" type="submit">Login</button>
+            <button class="btn btn-primary login-submit-btn" type="submit">Login</button>
             <button type="button" class="btn btn-secondary" id="signupBtn" data-bs-dismiss="modal">Don't have an account yet? Sign up</button>
           </div>
+          <div class="loginError"></div>
         </form>
       </div>
       <!--Modal Footer-->
@@ -102,6 +103,48 @@
 </div>
 
 
+ <!-- Signup--------------------------------------------------------------->
+     <div class="modal fade" id="signup_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!--Header of Modal-->
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          <div class="d-flex">
+            <h5>Sign Up</h5>
+          </div>
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <!--Modal Body-->
+      <div class="modal-body">
+        <form class="row g-3">
+           <div class="col-12">
+            <label for="loginUsername" class="form-label">Your name</label>
+            <input type="text" class="form-control" id="loginUsername" required>
+          </div>
+          <div class="col-12">
+            <label for="loginEmail" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="loginEmail" required>
+          </div>
+          <div class="col-12">
+            <label for="loginPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" id="loginPassword" required>
+          </div>
+          
+          <div class="col-12">
+            <button class="btn btn-primary signin-submit-btn" type="submit">Sign Up</button>
+            <button type="button" class="btn btn-secondary" id="signupBtn" data-bs-dismiss="modal">Already have an account? Login</button>
+          </div>
+        </form>
+      </div>
+      <!--Modal Footer-->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -330,6 +373,7 @@
     ></script>
     <script src="https://kit.fontawesome.com/118e30abce.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
       //Using jquery and ajax methods to get the JSON file from the jsonBlob server.
       let Countries = "";
@@ -339,10 +383,22 @@
       var editingCountryId = -1;
       var addingCountryId = -1;
       var imageFile = "";
+      const userApiUrl = "https://jsonblob.com/api/1213602404489879552";
+
+      let users = []
+      axios
+        .get(userApiUrl, {})
+        .then(function (res) {
+          users = res.data;
+          console.log(users)
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+
       $(document).ready(function(){
 
         //handle queery parameter
-
         $.getJSON("https://jsonblob.com/api/1213499724727705600", function(data ) {
           Countries = data;
           console.log(Countries);
@@ -475,23 +531,49 @@
             const navbar = $('.nav-bar')
             const authContainer = navbar.find('.auth-container')
             if(user){
-              console.log('1')
               const username = JSON.parse(user).name;
               authContainer.html(`
               <div>Hi, ${username}</div>
               <button id="logoutBtn">Logout</button>
               `)
             }else{
-              console.log('2')
               authContainer.html(`
-               <button id="loginBtn">Login</button>
-              <button id="signupBtn">Sign Up</button>
+               <button data-bs-toggle="modal" data-bs-target="#login_modal" id="loginBtn">Login</button>
+              <button data-bs-toggle="modal" data-bs-target="#signup_modal" id="signupBtn">Sign Up</button>
               `)
             }
           }
 
+          function loginUser(email, password){
+            const foundUser = users.find(user => user.email === email && user.password === password);
+            if (foundUser){
+                const { name, email} = foundUser; // Destructure user properties
+                console.log('login');
+                const user = {
+                    name: name,
+                    email: email,
+                };
+                localStorage.setItem('user', JSON.stringify(user));
+                checkUserInLocalStorage();
+                $('#login_modal').modal('hide');
+            }else{
+                console.log('cant login');
+                $('#loginError').text('Email or password not found');
+            }
+          } 
+
           $(document).ready(function() {
               checkUserInLocalStorage();
+              $(document).on('click', '#logoutBtn', function() {
+                localStorage.removeItem('user');
+                window.location.href = '/'; // Redirect to home page
+              });
+              $('#login_modal form').submit(function(e){
+                e.preventDefault();
+                const email = $('#loginEmail').val();
+                const password = $('#loginPassword').val();
+                loginUser(email, password)
+              })
           });
 
       // listen to event when click on  INFORMATION icon (vanilla js)
@@ -508,18 +590,9 @@
       
           $(() => {
           
-              $(document).on('click', '#logoutBtn', function() {
-                localStorage.removeItem('user');
-                window.location.href = '/'; // Redirect to home page
-              });
+              
 
-              $(document).on('click', '#loginBtn', function() {
-                showLoginModal();
-              });
-
-              $(document).on('click', '#signupBtn', function() {
-                showSignupModal();
-              });
+             
             //Delete the pet and put the pets data structure to the jsonBlob array.
             $(document).on("click", ".btn-dark", function () {
               let parentDiv = $(this).parent().parent().parent();

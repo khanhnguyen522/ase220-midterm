@@ -25,7 +25,7 @@
           style="--bs-bg-opaCountry: 0.5"
         >
          <div class="container-fluid" id="">
-         <a class="navbar-brand fs-2 fw-semibold" href="#">Cities <span id="countrycountry_name"></span></a>
+         <a class="navbar-brand fs-2 fw-semibold" href="#">Places <span id="countrycountry_name"></span></a>
          </div>
          <div class="auth-container d-flex gap-5 align-items-center w-25"></div>
        </nav>
@@ -62,99 +62,88 @@
         <div id="actions" class="d-flex justify-content-center my-4"></div>
       </div>
 
-      <!-- Login and signup modal --------------------------------------------------------------->
-      <div
-      class="modal fade"
-      id="info_modal"
-      data-bs-backdrop="static"
-      data-bs-keyboard="false"
-      tabindex="-1"
-      aria-labelledby="staticBackdropLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <!--Header of Modal-->
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">
-              <div class="d-flex">
-                <h5 > Log in or sign up</h5>
-              </div>
-            </h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+      <!-- Login --------------------------------------------------------------->
+     <div class="modal fade" id="login_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!--Header of Modal-->
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          <div class="d-flex">
+            <h5>Log in</h5>
           </div>
-          <!--Modal Body-->
-          <div class="modal-body">
-            <h5> Welcome</h5>
-            <form class="row g-3">
-                <div class="col-md-4">
-                  <label for="validationDefault01" class="form-label">First name</label>
-                  <input type="text" class="form-control" id="validationDefault01" value=" " required>
-                </div>
-                <div class="col-md-4">
-                  <label for="validationDefault02" class="form-label">Last name</label>
-                  <input type="text" class="form-control" id="validationDefault02" value=" " required>
-                </div>
-                <div class="col-md-4">
-                  <label for="validationDefaultUsername" class="form-label">Username</label>
-                  <div class="input-group">
-                    <span class="input-group-text" id="inputGroupPrepend2">@</span>
-                    <input type="text" class="form-control" id="validationDefaultUsername" aria-describedby="inputGroupPrepend2" required>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label for="validationDefault03" class="form-label">City</label>
-                  <input type="text" class="form-control" id="validationDefault03" required>
-                </div>
-                <div class="col-md-3">
-                  <label for="validationDefault04" class="form-label">State</label>
-                  <select class="form-select" id="validationDefault04" required>
-                    <option selected disabled value="">Choose...</option>
-                    <option value="AL">Alabama</option>
-                    <option value="AK">Alaska</option>
-                    <option value="AZ">Arizona</option>
-                    <option value="AR">Arkansas</option>
-                    <option value="WI">Wisconsin</option>
-                    <option value="WY">Wyoming</option>
-
-                  </select>
-                </div>
-                <div class="col-md-3">
-                  <label for="validationDefault05" class="form-label">Zip</label>
-                  <input type="text" class="form-control" id="validationDefault05" required>
-                </div>
-                <div class="col-12">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
-                    <label class="form-check-label" for="invalidCheck2">
-                      Agree to terms and conditions
-                    </label>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <button class="btn btn-secondary" type="submit">Sign Up</button>
-                </div>
-              </form>
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <!--Modal Body-->
+      <div class="modal-body">
+        <form class="row g-3">
+          <div class="col-12">
+            <label for="loginEmail" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="loginEmail" required>
           </div>
-          <!--Modal Footer-->
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-success"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            
+          <div class="col-12">
+            <label for="loginPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" id="loginPassword" required>
           </div>
-        </div>
+          
+          <div class="col-12">
+            <button class="btn btn-primary" type="submit">Login</button>
+            <button type="button" class="btn btn-secondary" id="signupBtn" data-bs-dismiss="modal">Don't have an account yet? Sign up</button>
+          </div>
+        </form>
+      </div>
+      <!--Modal Footer-->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
+  </div>
+</div>
+
+
+ <!-- Signup--------------------------------------------------------------->
+     <div class="modal fade" id="signup_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!--Header of Modal-->
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          <div class="d-flex">
+            <h5>Sign Up</h5>
+          </div>
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <!--Modal Body-->
+      <div class="modal-body">
+        <form class="row g-3">
+           <div class="col-12">
+            <label for="loginUsername" class="form-label">Your name</label>
+            <input type="text" class="form-control" id="loginUsername" required>
+          </div>
+          <div class="col-12">
+            <label for="loginEmail" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="loginEmail" required>
+          </div>
+          <div class="col-12">
+            <label for="loginPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" id="loginPassword" required>
+          </div>
+          
+          <div class="col-12">
+            <button class="btn btn-primary" type="submit">Sign Up</button>
+            <button type="button" class="btn btn-secondary" id="signupBtn" data-bs-dismiss="modal">Already have an account? Login</button>
+          </div>
+        </form>
+      </div>
+      <!--Modal Footer-->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -383,6 +372,7 @@
     ></script>
     <script src="https://kit.fontawesome.com/118e30abce.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </script>
     <script>
       //Using jquery and ajax methods to get the JSON file from the jsonBlob server.
@@ -399,6 +389,17 @@
       var imageFile = "";
       var particularCity = "";
       var details = [];
+       const userApiUrl = "https://jsonblob.com/api/1213602404489879552";
+      let users = []
+      axios
+        .get(userApiUrl, {})
+        .then(function (res) {
+          users = res.data;
+          console.log(users)
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
 
      function getQueryParam(key) {
         let queryParams = new URLSearchParams(window.location.search);
@@ -425,30 +426,7 @@
         return foundPlaces;
       }
 
-        function checkUserInLocalStorage(){
-            const user = localStorage.getItem('user')
-            const navbar = $('.nav-bar')
-            const authContainer = navbar.find('.auth-container')
-            if(user){
-              console.log('1')
-              const username = JSON.parse(user).name;
-              authContainer.html(`
-              <div>Hi, ${username}</div>
-              <button id="logoutBtn">Logout</button>
-              `)
-            }else{
-              console.log('2')
-              authContainer.html(`
-               <button id="loginBtn">Login</button>
-              <button id="signupBtn">Sign Up</button>
-              `)
-            }
-          }
-
-        $(document).ready(function() {
-            checkUserInLocalStorage();
-            
-        });
+        
       
       console.log(particularCity);
         $.getJSON("https://jsonblob.com/api/1213499724727705600", function(data ) {
@@ -541,9 +519,9 @@
                       <div id="mylink">
                         <a href="popularplaces.html">
                           <button class="learn-more">
-                            <span class="circle" aria-hidden="true">
+                            <a  href="comments.html?country=${country}&city=${city}&place=${place.place}" class="circle" aria-hidden="true">
                               <span class="icon arrow"></span>
-                            </span>
+                            </a>
                             <a class="button-text" href="comments.html?country=${country}&city=${city}&place=${place.place}">Explore</a>
                           </button>
                           </a>
@@ -578,6 +556,56 @@
             return details.find((City) => City.id === id);//return the pet whose id is passed as parameter
           }
 
+          function checkUserInLocalStorage(){
+            const user = localStorage.getItem('user')
+            const navbar = $('.nav-bar')
+            const authContainer = navbar.find('.auth-container')
+            if(user){
+              const username = JSON.parse(user).name;
+              authContainer.html(`
+              <div>Hi, ${username}</div>
+              <button id="logoutBtn">Logout</button>
+              `)
+            }else{
+              authContainer.html(`
+               <button  data-bs-toggle="modal" data-bs-target="#login_modal"  id="loginBtn">Login</button>
+              <button  data-bs-toggle="modal" data-bs-target="#signup_modal"  id="signupBtn">Sign Up</button>
+              `)
+            }
+          }
+          function loginUser(email, password){
+            const foundUser = users.find(user => user.email === email && user.password === password);
+            if (foundUser){
+                const { name, email} = foundUser; // Destructure user properties
+                console.log('login');
+                const user = {
+                    name: name,
+                    email: email,
+                };
+                localStorage.setItem('user', JSON.stringify(user));
+                checkUserInLocalStorage();
+                $('#login_modal').modal('hide');
+            }else{
+                console.log('cant login');
+                $('#loginError').text('Email or password not found');
+            }
+          } 
+
+          $(document).ready(function() {
+              checkUserInLocalStorage();
+              $(document).on('click', '#logoutBtn', function() {
+                localStorage.removeItem('user');
+                location.reload() 
+              });
+              $('#login_modal form').submit(function(e){
+                e.preventDefault();
+                const email = $('#loginEmail').val();
+                const password = $('#loginPassword').val();
+                loginUser(email, password)
+              })
+          });
+
+
       // listen to event when click on  INFORMATION icon (vanilla js)
           document
             .getElementById("info_modal")
@@ -589,19 +617,15 @@
               populateInfoModal(City);
             });
 
+            
+
+
+
       
           $(() => {
-             $(document).on('click', '#logoutBtn', function() {
-                localStorage.removeItem('user');
-              });
+            
 
-              $(document).on('click', '#loginBtn', function() {
-                showLoginModal();
-              });
-
-              $(document).on('click', '#signupBtn', function() {
-                showSignupModal();
-              });
+            
             //Delete the pet and put the pets data structure to the jsonBlob array.
             $(document).on("click", ".btn-danger", function () {
               let parentDiv = $(this).parent().parent().parent();
