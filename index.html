@@ -19,7 +19,7 @@
   <body>
     <div class="makeItFixed">
         <nav
-           class="nav-bar bg-success p-2 font-monospace d-flex "
+           class="nav-bar bg-black text-white p-2 d-flex "
            style="--bs-bg-opaCountry: 0.5"
         >
          <div class="container-fluid" id="">
@@ -29,19 +29,19 @@
        </nav>
 
         <div
-         class="d-flex justify-content-center mt-4 fw-semibold fs-2 pt-3 font-monospace"
+         class="d-flex justify-content-center mt-4 fw-semibold fs-2 pt-3 "
         >
         <i class="fas fa-seedling" ></i> Explore the Colors of Culture: A World of Diversity Awaits <i class="fas fa-seedling"></i>
     </div>
 </div>  
-    <div class="d-flex justify-content-center font-monospace">
+    <div class="d-flex justify-content-center ">
       <div class="container text-cente m-5">
         <div class = "container text-end m-3">
             <nav class="navbar bg-body-tertiary sticky-top">
                 <div class="container-fluid">
                   <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">
+                    <button class="btn bg-black text-white" type="submit">
                         <i class="fas fa-search"></i> 
                     </button>
                   </form>
@@ -276,7 +276,7 @@
 
           
           <div class="modal-footer">
-            <button type="button" id="add-submit" class="btn btn-success">
+            <button type="button" id="add-submit" class="btn bg-black text-white">
               Add Country
             </button>
           </div>
@@ -397,7 +397,7 @@
                           </button>
                       </a>
                       <a data-bs-toggle="modal" data-bs-target="#update_modal"
-                      class="btn btn-success" id="btn-edit">
+                      class="btn bg-black text-white" id="btn-edit">
                       <i class="bi bi-pencil-square"></i></a>
                       <a
                       class="btn btn-dark d-flex align-items-center">
@@ -464,24 +464,26 @@ function populateUpdateModal(Country) {
             }
           }
 
-          function loginUser(email, password){
-            const foundUser = users.find(user => user.email === email && user.password === password);
-            if (foundUser){
-                const { name, email} = foundUser; // Destructure user properties
-                console.log('login');
-                const user = {
-                    name: name,
-                    email: email,
-                };
-                localStorage.setItem('user', JSON.stringify(user));
-                checkUserInLocalStorage();
-                $('#login_modal').modal('hide');
-            }else{
-                console.log('cant login');
-                $('#loginError').text('Email or password not found');
+        function loginUser(email, password) {
+            const foundUser = users.find(
+            (user) => user.email === email && user.password === password
+            );
+            if (foundUser) {
+            const { userId, name, email } = foundUser; // Destructure user properties
+            console.log("login");
+            const user = {
+                userId: userId,
+                name: name,
+                email: email,
+            };
+            localStorage.setItem("user", JSON.stringify(user));
+            checkUserInLocalStorage();
+            $("#login_modal").modal("hide");
+            } else {
+            console.log("cant login");
+            $("#loginError").text("Email or password not found");
             }
-          } 
-
+        }
           function signupUser(username, email, password){
             const existingUser = users.find(user=> user.email === email);
             if(existingUser){

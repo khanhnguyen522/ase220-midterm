@@ -31,7 +31,7 @@
 .carousel-item img:hover {
   transform: scale(1.1);
 }
-button {
+.learn-more {
   position: relative;
   display: inline-block;
   cursor: pointer;

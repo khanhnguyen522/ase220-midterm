@@ -21,13 +21,13 @@
     <!---To be Handled Later-->
     <div class="makeItFixed">
         <nav
-          class="nav-bar bg-success p-2 font-monospace d-flex "
+          class="nav-bar bg-black text-white p-2  d-flex "
           style="--bs-bg-opaCountry: 0.5"
         >
          <div class="container-fluid" id="">
          <a class="navbar-brand fs-2 fw-semibold" href="#">Places <span id="countrycountry_name"></span></a>
          </div>
-         <div class="auth-container d-flex gap-5 align-items-center w-25"></div>
+         <div class="auth-container text-white d-flex gap-5 align-items-center w-25"></div>
        </nav>
 
     <div
@@ -244,7 +244,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" id="edit-submit" class="btn btn-success">
+              <button type="button" id="edit-submit" class="btn bg-black text-white">
                 Save changes
               </button>
             </div>
@@ -347,7 +347,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" id="add-submit" class="btn btn-success">
+            <button type="button" id="add-submit" class="btn bg-black text-white">
               Add City
             </button>
           </div>
@@ -563,7 +563,7 @@
             if(user){
               const username = JSON.parse(user).name;
               authContainer.html(`
-              <div>Hi, ${username}</div>
+              <div >Hi, ${username}</div>
               <button id="logoutBtn">Logout</button>
               `)
             }else{
@@ -573,24 +573,26 @@
               `)
             }
           }
-          function loginUser(email, password){
-            const foundUser = users.find(user => user.email === email && user.password === password);
-            if (foundUser){
-                const { name, email} = foundUser; // Destructure user properties
-                console.log('login');
-                const user = {
-                    name: name,
-                    email: email,
-                };
-                localStorage.setItem('user', JSON.stringify(user));
-                checkUserInLocalStorage();
-                $('#login_modal').modal('hide');
-            }else{
-                console.log('cant login');
-                $('#loginError').text('Email or password not found');
+          function loginUser(email, password) {
+            const foundUser = users.find(
+            (user) => user.email === email && user.password === password
+            );
+            if (foundUser) {
+            const { userId, name, email } = foundUser; // Destructure user properties
+            console.log("login");
+            const user = {
+                userId: userId,
+                name: name,
+                email: email,
+            };
+            localStorage.setItem("user", JSON.stringify(user));
+            checkUserInLocalStorage();
+            $("#login_modal").modal("hide");
+            } else {
+            console.log("cant login");
+            $("#loginError").text("Email or password not found");
             }
-          } 
-
+        }
           function signupUser(username, email, password){
             const existingUser = users.find(user=> user.email === email);
             if(existingUser){
