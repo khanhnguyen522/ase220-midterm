@@ -89,7 +89,7 @@
           
           <div class="col-12">
             <button class="btn btn-primary login-submit-btn" type="submit">Login</button>
-            <button type="button" class="btn btn-secondary" id="signupBtn" data-bs-dismiss="modal">Don't have an account yet? Sign up</button>
+            <button type="button" class="btn btn-secondary signup-btn" id="signup-btn" data-bs-dismiss="modal">Don't have an account yet? Sign up</button>
           </div>
           <div class="loginError"></div>
         </form>
@@ -134,7 +134,7 @@
           
           <div class="col-12">
             <button class="btn btn-primary signup-submit-btn" type="submit">Sign Up</button>
-            <button type="button" class="btn btn-secondary" id="signupBtn" data-bs-dismiss="modal">Already have an account? Login</button>
+            <button type="button" class="btn btn-secondary login-btn" id="login-btn" data-bs-dismiss="modal">Already have an account? Login</button>
           </div>
            <div class="signupError"></div>
         </form>
@@ -613,6 +613,16 @@
                 console.log('signup')
                 signupUser(username, email, password);
               })
+               $(document).on("click", "#login-btn", function () {
+                console.log('khanh')
+                $("#signup_modal").modal("hide");
+                $("#login_modal").modal("show");
+            });
+            $(document).on("click", "#signup-btn", function () {
+                console.log('khanh1')
+                $("#signup_modal").modal("show");
+                $("#login_modal").modal("hide");
+            });
           });
 
       // listen to event when click on  INFORMATION icon (vanilla js)
@@ -628,6 +638,7 @@
 
       
           $(() => {
+            
             //Delete the pet and put the pets data structure to the jsonBlob array.
             $(document).on("click", ".btn-dark", function () {
               let parentDiv = $(this).parent().parent().parent();
