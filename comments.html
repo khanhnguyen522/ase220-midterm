@@ -39,7 +39,6 @@
         <div class="text-end">
           <a
             data-bs-toggle="modal"
-            data-bs-target="#add_modal"
             class="btn btn-success me-2 m-3"
             id="btn-add"
             >Add Comment</a
@@ -239,44 +238,49 @@
           <div class="modal-body">
             <form class="row g-3">
               <div class="col-12">
-                <label for="loginUsername" class="form-label">Your name</label>
+                <label for="signupUsername" class="form-label">Your name</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="loginUsername"
+                  id="signupUsername"
                   required
                 />
               </div>
               <div class="col-12">
-                <label for="loginEmail" class="form-label">Email address</label>
+                <label for="signupEmail" class="form-label"
+                  >Email address</label
+                >
                 <input
                   type="email"
                   class="form-control"
-                  id="loginEmail"
+                  id="signupEmail"
                   required
                 />
               </div>
               <div class="col-12">
-                <label for="loginPassword" class="form-label">Password</label>
+                <label for="signupPassword" class="form-label">Password</label>
                 <input
                   type="password"
                   class="form-control"
-                  id="loginPassword"
+                  id="signupPassword"
                   required
                 />
               </div>
 
               <div class="col-12">
-                <button class="btn btn-primary" type="submit">Sign Up</button>
+                <button class="btn btn-primary signup-submit-btn" type="submit">
+                  Sign Up
+                </button>
                 <button
                   type="button"
                   class="btn btn-secondary"
-                  id="signupBtn"
+                  id="loginBtn"
                   data-bs-dismiss="modal"
                 >
                   Already have an account? Login
                 </button>
               </div>
+              <div class="signupError"></div>
             </form>
           </div>
           <!--Modal Footer-->
@@ -317,8 +321,8 @@
       let placeName = "";
       let comments = [];
       let users = [];
-      const user = JSON.parse(localStorage.getItem("user"));
-      const userId = user?.userId;
+      let user = JSON.parse(localStorage.getItem("user"));
+      let userId = user?.userId;
       const apiUrl = "https://jsonblob.com/api/1213499724727705600";
       const userApiUrl = "https://jsonblob.com/api/1213602404489879552";
 
@@ -402,10 +406,8 @@
                     <div class="d-flex align-items-center gap-5 mt-2">
                         <a
                             data-bs-toggle="modal"
-                            data-bs-target="#reply_modal"
                             class="btn btn-success reply-btn d-flex gap-1"
                             id="${comment.commentId}"
-
                             ><i class="bi bi-reply-fill"></i>Reply</a
                         >
                         <div class="d-flex align-items-center gap-3 ">
@@ -494,12 +496,47 @@
         }
       }
 
+      function signupUser(username, email, password) {
+        const existingUser = users.find((user) => user.email === email);
+        if (existingUser) {
+          $("#signupError").text(
+            "Email already exists. Please use a different email"
+          );
+          return;
+        }
+        const newUser = {
+          userId: users.length + 1,
+          name: username,
+          email: email,
+          password: password,
+        };
+        const newLocalUser = {
+          userId: users.length + 1,
+          name: username,
+          email: email,
+        };
+        console.log(newUser);
+        users.push(newUser);
+        axios
+          .put(userApiUrl, users)
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
+        localStorage.setItem("user", JSON.stringify(newLocalUser));
+        $("#signupError").text("");
+        checkUserInLocalStorage();
+        $("#signup_modal").modal("hide");
+      }
+
       $(document).ready(function () {
         checkUserInLocalStorage();
         $(document).on("click", "#logoutBtn", function () {
-          console.log("loggg");
           localStorage.removeItem("user");
-          location.reload(); // Redirect to home page
+          location.reload();
         });
         $("#login_modal form").submit(function (e) {
           e.preventDefault();
@@ -507,11 +544,43 @@
           const password = $("#loginPassword").val();
           loginUser(email, password);
         });
+        $("#signup_modal form").submit(function (e) {
+          e.preventDefault();
+          const username = $("#signupUsername").val();
+          const email = $("#signupEmail").val();
+          const password = $("#signupPassword").val();
+          console.log("signup");
+          signupUser(username, email, password);
+        });
       });
 
       $(() => {
+        //handle login before add comment and reply
+        $(document).on("click", "#btn-add", function (e) {
+          user = localStorage.getItem("user");
+          console.log("add comment");
+          if (!user) {
+            $("#login_modal").modal("show");
+            e.preventDefault();
+            return;
+          } else {
+            $("#add_modal").modal("show");
+          }
+        });
+        $(document).on("click", ".reply-btn", function (e) {
+          user = localStorage.getItem("user");
+          if (!user) {
+            $("#login_modal").modal("show");
+            e.preventDefault();
+            return;
+          } else {
+            $("#reply_modal").modal("show");
+          }
+        });
         //add comment
         $(document).on("click", "#add-submit", function () {
+          user = JSON.parse(localStorage.getItem("user"));
+          userId = user?.userId;
           var newComment = {
             userId: userId,
             commentId: generateCommentId(),
@@ -520,6 +589,7 @@
             downvoteUserId: [],
             replies: [],
           };
+          console.log(newComment);
 
           const countryId = data.findIndex(
             (country) => country.country === countryName
