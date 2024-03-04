@@ -189,8 +189,8 @@
                 <button class="btn btn-primary" type="submit">Login</button>
                 <button
                   type="button"
-                  class="btn btn-secondary"
-                  id="signupBtn"
+                  class="btn btn-secondary signup-btn"
+                  id="signup-btn"
                   data-bs-dismiss="modal"
                 >
                   Don't have an account yet? Sign up
@@ -273,8 +273,8 @@
                 </button>
                 <button
                   type="button"
-                  class="btn btn-secondary"
-                  id="loginBtn"
+                  class="btn btn-secondary login-btn"
+                  id="login-btn"
                   data-bs-dismiss="modal"
                 >
                   Already have an account? Login
@@ -555,6 +555,16 @@
       });
 
       $(() => {
+        $(document).on("click", ".login-btn", function (e) {
+          console.log("khanh");
+          $("#signup_modal").modal("hide");
+          $("#login_modal").modal("show");
+        });
+        $(document).on("click", ".signup-btn", function (e) {
+          console.log("khanh1");
+          $("#signup_modal").modal("show");
+          $("#login_modal").modal("hide");
+        });
         //handle login before add comment and reply
         $(document).on("click", "#btn-add", function (e) {
           user = localStorage.getItem("user");
