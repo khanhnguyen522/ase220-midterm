@@ -31,7 +31,7 @@
         <div
          class="d-flex justify-content-center mt-4 fw-semibold fs-2 pt-3 font-monospace"
         >
-       Country
+        <i class="fas fa-seedling" ></i> Explore the Colors of Culture: A World of Diversity Awaits <i class="fas fa-seedling"></i>
     </div>
 </div>  
     <div class="d-flex justify-content-center font-monospace">
@@ -48,13 +48,13 @@
                   <!-- Button Links -->
                   <div class="text-end">
                     <a data-bs-toggle="modal" data-bs-target="#add_modal" class="btn btn-dark me-2" id="btn-add">Add Country</a>
-                   
+                    <a class="btn btn-dark" id="btn-favorite">Favorites</a>
                   </div>
                 </div>
               </nav>
               
         <div
-          id="pets-container"
+          id="country-container"
           class="row row-cols-1 row-cols-sm-2 row-cols-lg-3"
         ></div>
 
@@ -179,60 +179,21 @@
               <div class="card-body d-flex flex-column">
                 <form>
                   <div class="mb-3">
-                    <label for="inputcountry_name" class="form-label">country_name</label>
-                    <input type="text" class="form-control" id="inputcountry_name"/>
+                    <label for="inputcountry" class="form-label">Country Name</label>
+                    <input type="text" class="form-control" id="inputcountry"/>
                   </div>
-
-                  <div class="mb-3">
-                    <label for="inputDestination" class="form-label">Tourist Destinations</label>
-                    <input type="text" class="form-control" id="inputDestination" />
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="inputVisit" class="form-label">Best Time to Visit</label>
-                    <input type="text" class="form-control" id="inputVisit" />
-                  </div>
-
+  
                   <div class="mb-3">
                     <label for="inputRating" class="form-label">Ratings</label>
                     <input type="text" class="form-control" id="inputRating" />
                   </div>
-
-                  <div class="mb-3 d-flex gap-2">
-                    <label for="inputTemperature" class="col-form-label">Average Temperature:</label>
-                    <div class="d-flex align-items-center gap-4">
-                      <div class="form-check gap-2">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="HighTemperatureAdd"
-                          text = "High Temperature"
-                        />
-                        <label for="High" class="form-control">High Temperature</label>
-                      </div>
-                      <div class="form-check gap-2">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="LowTemperatureAdd"
-                          text="Low Temperature"
-                        />
-                        <label for="Low" class="form-control"
-                          >Low Temperature</label
-                        >
-                      </div>
-                    </div>
-                  </div>
                   
-
-                  <div class="mb-3">
-                    <label for="inputAge" class="form-label">ID</label>
-                    <input type="text" class="form-control" id="idAdd" />
-                  </div>
-
+  
+                  
+  
                   <div class="mb-3">
                     <label for="inputDescription" class="form-label"
-                      >Description</label
+                      >Short Introduction</label
                     >
                     <textarea
                       class="form-control"
@@ -279,74 +240,36 @@
           <!--Modal Body-->
           <div class="modal-body">
             <div class="card-body d-flex flex-column">
-                <form>
-                    <div class="mb-3">
-                        <label for="formFile" class="form-label">Pet Image</label>
-                        <input type="file" class="form-control" id="petImageAdd" />
-                      </div>
-                    <div class="mb-3">
-                      <label for="inputcountry_name" class="form-label">country_name</label>
-                      <input type="text" class="form-control" id="inputcountry_nameAdd"/>
-                    </div>
-  
-                    <div class="mb-3">
-                      <label for="inputDestination" class="form-label">Tourist Destinations</label>
-                      <input type="text" class="form-control" id="inputDestinationAdd" />
-                    </div>
-  
-                    <div class="mb-3">
-                      <label for="inputVisit" class="form-label">Best Time to Visit</label>
-                      <input type="text" class="form-control" id="inputVisitAdd" />
-                    </div>
-  
-                    <div class="mb-3">
-                      <label for="inputRating" class="form-label">Ratings</label>
-                      <input type="text" class="form-control" id="inputRatingAdd" />
-                    </div>
-  
-                    <div class="mb-3 d-flex gap-2">
-                      <label for="inputTemperature" class="col-form-label">Average Temperature:</label>
-                      <div class="d-flex align-items-center gap-4">
-                        <div class="form-check gap-2">
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="HighTemperatureAddd"
-                            text = "High Temperature"
-                          />
-                          <label for="High" class="form-control">High Temperature</label>
-                        </div>
-                        <div class="form-check gap-2">
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="LowTemperatureAddd"
-                            text="Low Temperature"
-                          />
-                          <label for="Low" class="form-control"
-                            >Low Temperature</label
-                          >
-                        </div>
-                      </div>
-                    </div>
-                    
-  
-                    <div class="mb-3">
-                      <label for="inputAge" class="form-label">ID</label>
-                      <input type="text" class="form-control" id="idAdd" />
-                    </div>
-  
-                    <div class="mb-3">
-                      <label for="inputDescription" class="form-label"
-                        >Description</label
-                      >
-                      <textarea
-                        class="form-control"
-                        id="inputDescriptionAdd"
-                        rows="3"
-                      ></textarea>
-                    </div>
-                  </form>
+              <form>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Country Image</label>
+                    <input type="file" class="form-control" id="countryImageAdd" />
+                  </div>
+                <div class="mb-3">
+                  <label for="inputcountry" class="form-label">Country Name</label>
+                  <input type="text" class="form-control" id="inputcountryAdd"/>
+                </div>
+
+                 <div class="mb-3">
+                  <label for="inputAge" class="form-label">ID</label>
+                  <input type="text" class="form-control" id="idAdd" />
+                </div>
+
+                <div class="mb-3">
+                  <label for="inputRating" class="form-label">Ratings</label>
+                  <input type="text" class="form-control" id="inputRatingAdd" />
+                </div>
+                <div class="mb-3">
+                  <label for="inputDescription" class="form-label"
+                    >Short Introduction</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="inputDescriptionAdd"
+                    rows="3"
+                  ></textarea>
+                </div>
+              </form>
 
             </div>
           </div>
@@ -434,7 +357,7 @@
                 e.target.classList.remove("btn-outline-success");
                 e.target.classList.add("btn-dark");
                 e.target.classList.add("disabled");
-                document.getElementById("pets-container").innerHTML = "";
+                document.getElementById("country-container").innerHTML = "";
                 displayCards(Countries);
               });
               document.querySelector("#actions").append(loadMoreButton);
@@ -442,7 +365,6 @@
           }
 
           function generateCard(Country) {
-            console.log(Country)
              const cardHTML = `
               <div class="col cards my-2" id = ${Country.id}>
                   <span class="card h-100">
@@ -473,7 +395,7 @@
                             </span>
                             <a class="button-text" href="cities.html?country=${Country.country}" >Explore</a>
                           </button>
-                          </a>
+                      </a>
                       <a data-bs-toggle="modal" data-bs-target="#update_modal"
                       class="btn btn-success" id="btn-edit">
                       <i class="bi bi-pencil-square"></i></a>
@@ -488,7 +410,7 @@
 
           function displayCards(Countries) {
             for (let i = offset; i < Math.min(offset + rpp, Countries.length); i++) {
-              document.getElementById("pets-container").innerHTML += generateCard(
+              document.getElementById("country-container").innerHTML += generateCard(
                 Countries[i]
               );
             }
@@ -510,16 +432,14 @@
 
 
 //Populate the update model when update button is clicked handled later.
-          function populateUpdateModal(Country) {
-            document.getElementById("inputcountry_name").value = Country.country_name;
-            document.getElementById("inputDestination").value = Country.destinations;
-            document.getElementById("inputVisit").value = Country.best_time_to_visit;
-            document.getElementById("inputRating").value = Country.ratings;
-            document.getElementById("HighTemperatureAdd").value = Country.high;
-            document.getElementById("LowTemperatureAdd").value = Country.low;
-            document.getElementById("inputDescription").value = Country.description;
-          }
 
+function populateUpdateModal(Country) {
+            document.getElementById("inputcountry").value = Country.country;
+            document.getElementById("inputRating").value = Country.ratings;
+            document.getElementById("inputDescription").value = Country.message;
+            document.getElementById("inputAge").value = Country.id;
+
+          }
           
 
           function getCountriesById(id) {
@@ -664,13 +584,14 @@
                             alert(errMsg);
                         }
                       });
-                $("#pets-container").empty();
+                $("#country-container").empty();
                 displayCards(Countries);
                 displayPageBasedPagination(Countries);
               }
             });
             //populate pet information as default value on update modal
             $(document).on("click", "#btn-edit", function () {
+              console.log('print')
               editCountryIdText = $(this)
                 .parents()
                 .parents()
@@ -690,19 +611,15 @@
               var updatedCountry = {
                 id: editingCountry.id,
                 avatar: editingCountry.avatar,
-                country_name: $("#inputcountry_name").val() || editingCountry.country_name,
-                destinations: $("#inputDestination").val() || editingCountry.destinations,
-                best_time_to_visit: $("#inputVisit").val() || editingCountry.best_time_to_visit,
+                country: $("#inputcountry").val() || editingCountry.country,
                 ratings: $("#inputRating").val() || editingCountry.ratings,
-                high: $("#HighTemperatureAdd").val() || editingCountry.high,
-                low: $("#LowTemperatureAdd").val() || editingCountry.low,
-                description: $("#inputDescription").val() || editingCountry.description,
+                message: $("#inputDescription").val() || editingCountry.message,
               };
               //update UI depend on new pets array stored in jsonBlob
               const index = Countries.findIndex((Country) => Country.id === editingCountryId);
               if (index !== -1) {
                 Countries[index] = updatedCountry;
-              $("#pets-container").empty();
+              $("#country-container").empty();
               displayCards(Countries);
               }
               $("#update_modal").modal("hide");
@@ -737,23 +654,20 @@
               imageFile = `${"../assets/"}${filePath}`;
               console.log(imageFile);
             })
-            //When add pet button is clicked we add the new card to the pets-container.
+            //When add pet button is clicked we add the new card to the country-container.
             $(document).on("click", "#add-submit", function () {
               var addingCountry = {
                 id: $("#idAdd").val(),
                 avatar: imageFile,
-                country_name: $("#inputcountry_nameAdd").val(),
-                destinations: $("#inputDestinationAdd").val(),
-                best_time_to_visit: $("#inputVisitAdd").val(),
+                country: $("#inputcountryAdd").val(),
                 ratings: $("#inputRatingAdd").val(),
-                high: $("#HighTemperatureAdd").val(),
-                low: $("#LowTemperatureAdd").val(),
-                description: $("#inputDescriptionAdd").val(),
+                message: $("#inputDescriptionAdd").val(),
+                         
               };
               //update UI depend on new pets array stored in local storage
               //Using unshift method to add the new pet in index 0.
               Countries.unshift(addingCountry);
-              $("#pets-container").empty();
+              $("#country-container").empty();
               displayCards(Countries);
               displayPageBasedPagination(Countries);
               $("#add_modal").modal("hide");
@@ -791,8 +705,8 @@
     CountriesArray.length = 0; // Clear the citiesArray before populating it with matching Country country_names
 
     for (let i = 0; i < Countries.length; i++) {
-      if (Countries[i].country_name.toLowerCase().includes(searchValue)) {
-        CountriesArray.push(Countries[i].country_name); // Add the matching Country country_name to the array
+      if (Countries[i].country.toLowerCase().includes(searchValue)) {
+        CountriesArray.push(Countries[i].country); // Add the matching Country country_name to the array
         // You can perform any additional actions if a matching Country is found
       }
     }

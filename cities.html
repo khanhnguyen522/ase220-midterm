@@ -223,12 +223,6 @@
                       </div>
                     </div>
                   </div>
-                  
-
-                  <div class="mb-3">
-                    <label for="inputAge" class="form-label">ID</label>
-                    <input type="text" class="form-control" id="idAdd" />
-                  </div>
 
                   <div class="mb-3">
                     <label for="inputDescription" class="form-label"
@@ -393,7 +387,6 @@
         .get(userApiUrl, {})
         .then(function (res) {
           users = res.data;
-          console.log(users)
         })
         .catch(function (err) {
           console.log(err);
@@ -465,7 +458,6 @@
            
 
           function generateCard(City) {
-            console.log(City)
              const cardHTML = `
               <div class="col cards my-2" id = ${City.cityId}>
                   <span class="card h-100 ">
@@ -494,7 +486,7 @@
                             </button>
                         </div>                                                   
                        
-                     </div>
+                    </div>
 
                     <div class="card-body d-flex flex-column" style="text-align: left;">
                       <div class="d-flex justify-content-between">
@@ -514,9 +506,11 @@
                       </ul>
                      </div>
                      <div class="d-flex justify-content-end gap-2 m-3">
-                     <a class="btn btn-success" href="popularplaces.html?country=${country}&city=${City.city}">More details</a>
+                     <a class="btn btn-success" href="popularplaces.html?country=${country}&city=${City.city}">
+                        More details
+                      </a>
                       <a data-bs-toggle="modal" data-bs-target="#update_modal"
-                      class="btn btn-dark" id="btn-edit">
+                      class="btn btn-success" id="btn-edit">
                       <i class="bi bi-pencil-square"></i></a>
                       <a
                       class="btn btn-dark d-flex align-items-center">
@@ -534,9 +528,10 @@
               );
             }
           }
-//Populate the update model when update button is clicked handled later.
+          //Populate the update model when update button is clicked handled later.
           function populateUpdateModal(City) {
-            document.getElementById("inputName").value = City.name;
+            console.log(City)
+            document.getElementById("inputName").value = City.city;
             document.getElementById("inputDestination").value = City.destinations;
             document.getElementById("inputVisit").value = City.best_time_to_visit;
             document.getElementById("inputRating").value = City.ratings;
@@ -548,7 +543,8 @@
           
 
           function getCitiesById(id) {
-            return Cities.find((City) => City.id === id);//return the pet whose id is passed as parameter
+            id = parseInt(id)
+            return Cities.find((city) => city.cityId === id);//return the pet whose id is passed as parameter
           }
            function checkUserInLocalStorage(){
             const user = localStorage.getItem('user')
@@ -650,19 +646,37 @@
 
 
       // listen to event when click on  INFORMATION icon (vanilla js)
-          document
-            .getElementById("info_modal")
-            .addEventListener("show.bs.modal", function (event) {
-              const modalDoc = event.relatedTarget;
-              const id =
-                modalDoc.parentNode.parentNode.querySelector('ul li[id="id"]');
-              const City = getCitiesById(id.innerText.split(" ")[1]);
-              populateInfoModal(City);
-            });
+          // document
+          //   .getElementById("info_modal")
+          //   .addEventListener("show.bs.modal", function (event) {
+          //     const modalDoc = event?.relatedTarget;
+          //     const id =
+          //       modalDoc?.parentNode?.parentNode?.querySelector('ul li[id="id"]');
+          //     const City = getCitiesById(id?.innerText.split(" ")[1]);
+          //     populateInfoModal(City);
+          //   });
+          
+  
 
-      
           $(() => {
-             
+             $(document).on("click", "#btn-edit", function () {
+              editCityIdText = $(this)
+                .parents()
+                .parents()
+                .eq(1)
+                .find("div")
+                .find("ul")
+                .find("li[id]")
+                .text();
+              editingCityId = editCityIdText.split(" ")[1];
+              const editingCity = getCitiesById(editingCityId);
+              console.log(editingCity);
+              if (editingCity) {
+                populateUpdateModal(editingCity);
+              } else {
+                console.error('City not found for ID:', editingCityId);
+              }
+            });
             //Delete the pet and put the pets data structure to the jsonBlob array.
             $(document).on("click", ".btn-danger", function () {
               let parentDiv = $(this).parent().parent().parent();
@@ -694,25 +708,7 @@
               }
             });
             //populate pet information as default value on update modal
-            $(document).on("click", "#btn-edit", function () {
-              editCityIdText = $(this)
-                .parents()
-                .parents()
-                .eq(1)
-                .find("div")
-                .find("ul")
-                .find("li[id]")
-                .text();
-              editingCityId = editCityIdText.split(" ")[1];
-              const editingCity = getCitiesById(editingCityId);
-              console.log('Editing City:', editingCity);
-              if (editingCity) {
-              populateUpdateModal(editingCity);
-            } else {
-    console.error('City not found for ID:', editingCityId);
-    // Optionally, handle this case with user feedback
-  }
-            });
+           
 
             //update pet information when the edit form is submitted
             $(document).on("click", "#edit-submit", function () {
