@@ -318,7 +318,7 @@
       let comments = [];
       let users = [];
       const user = JSON.parse(localStorage.getItem("user"));
-      const userId = user.userId;
+      const userId = user?.userId;
       const apiUrl = "https://jsonblob.com/api/1213499724727705600";
       const userApiUrl = "https://jsonblob.com/api/1213602404489879552";
 
@@ -460,17 +460,15 @@
         const navbar = $(".nav-bar");
         const authContainer = navbar.find(".auth-container");
         if (user) {
-          console.log("1");
           const username = JSON.parse(user).name;
           authContainer.html(`
               <div>Hi, ${username}</div>
               <button id="logoutBtn">Logout</button>
               `);
         } else {
-          console.log("2");
           authContainer.html(`
-               <button  data-bs-toggle="modal" data-bs-target="#login_modal"  id="loginBtn">Login</button>
-              <button  data-bs-toggle="modal" data-bs-target="#signup_modal"  id="signupBtn">Sign Up</button>
+               <button data-bs-toggle="modal" data-bs-target="#login_modal" id="loginBtn">Login</button>
+              <button data-bs-toggle="modal" data-bs-target="#signup_modal" id="signupBtn">Sign Up</button>
               `);
         }
       }
@@ -480,9 +478,10 @@
           (user) => user.email === email && user.password === password
         );
         if (foundUser) {
-          const { name, email } = foundUser; // Destructure user properties
+          const { userId, name, email } = foundUser; // Destructure user properties
           console.log("login");
           const user = {
+            userId: userId,
             name: name,
             email: email,
           };
@@ -497,6 +496,11 @@
 
       $(document).ready(function () {
         checkUserInLocalStorage();
+        $(document).on("click", "#logoutBtn", function () {
+          console.log("loggg");
+          localStorage.removeItem("user");
+          location.reload(); // Redirect to home page
+        });
         $("#login_modal form").submit(function (e) {
           e.preventDefault();
           const email = $("#loginEmail").val();
@@ -506,11 +510,6 @@
       });
 
       $(() => {
-        $(document).on("click", "#logoutBtn", function () {
-          localStorage.removeItem("user");
-          location.reload();
-        });
-
         //add comment
         $(document).on("click", "#add-submit", function () {
           var newComment = {

@@ -120,22 +120,23 @@
       <div class="modal-body">
         <form class="row g-3">
            <div class="col-12">
-            <label for="loginUsername" class="form-label">Your name</label>
-            <input type="text" class="form-control" id="loginUsername" required>
+            <label for="signupUsername" class="form-label">Your name</label>
+            <input type="text" class="form-control" id="signupUsername" required>
           </div>
           <div class="col-12">
-            <label for="loginEmail" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="loginEmail" required>
+            <label for="signupEmail" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="signupEmail" required>
           </div>
           <div class="col-12">
-            <label for="loginPassword" class="form-label">Password</label>
-            <input type="password" class="form-control" id="loginPassword" required>
+            <label for="signupPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" id="signupPassword" required>
           </div>
           
           <div class="col-12">
-            <button class="btn btn-primary signin-submit-btn" type="submit">Sign Up</button>
+            <button class="btn btn-primary signup-submit-btn" type="submit">Sign Up</button>
             <button type="button" class="btn btn-secondary" id="signupBtn" data-bs-dismiss="modal">Already have an account? Login</button>
           </div>
+           <div class="signupError"></div>
         </form>
       </div>
       <!--Modal Footer-->
@@ -390,7 +391,6 @@
         .get(userApiUrl, {})
         .then(function (res) {
           users = res.data;
-          console.log(users)
         })
         .catch(function (err) {
           console.log(err);
@@ -562,6 +562,37 @@
             }
           } 
 
+          function signupUser(username, email, password){
+            const existingUser = users.find(user=> user.email === email);
+            if(existingUser){
+              $('#signupError').text('Email already exists. Please use a different email');
+              return;
+            }
+            const newUser = {
+              userId: users.length + 1,
+              name: username,
+              email: email,
+              password: password,
+            }
+            const newLocalUser = {
+              userId: users.length + 1,
+              name: username,
+              email: email,
+            }
+            console.log(newUser)
+            users.push(newUser);
+            axios.put(userApiUrl, users).then((res)=>{
+              console.log(res.data)
+            }).catch((err)=>{
+              console.log(err)
+            })
+            
+            localStorage.setItem('user', JSON.stringify(newLocalUser));
+            $("#signupError").text("");
+            checkUserInLocalStorage()
+            $("#signup_modal").modal("hide");
+          }
+
           $(document).ready(function() {
               checkUserInLocalStorage();
               $(document).on('click', '#logoutBtn', function() {
@@ -573,6 +604,14 @@
                 const email = $('#loginEmail').val();
                 const password = $('#loginPassword').val();
                 loginUser(email, password)
+              })
+              $('#signup_modal form').submit(function(e){
+                e.preventDefault();
+                const username = $('#signupUsername').val()
+                const email = $('#signupEmail').val();
+                const password = $('#signupPassword').val();
+                console.log('signup')
+                signupUser(username, email, password);
               })
           });
 
@@ -589,10 +628,6 @@
 
       
           $(() => {
-          
-              
-
-             
             //Delete the pet and put the pets data structure to the jsonBlob array.
             $(document).on("click", ".btn-dark", function () {
               let parentDiv = $(this).parent().parent().parent();
