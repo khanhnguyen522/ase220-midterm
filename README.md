@@ -11,8 +11,8 @@ Our Travel Suggestion Web Application aims to provides user with a convenient pl
 - Khanh: implement add function
 4. comments.html:
 - Khanh: create the page, implement add comment function and reply function, create user JSON blob
-5. User authentication:
-- Khanh: implement login and signup modal, user login and signup function, logout function
+5. User authentication and linking pages:
+- Khanh: implement login and signup modal, user login and signup function, logout function; link pages
 ## C. Documentation: 
 in documentation.txt in repo
 ## D. Video Demo:
