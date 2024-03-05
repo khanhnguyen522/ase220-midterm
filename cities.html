@@ -205,7 +205,7 @@
                         <input
                           type="text"
                           class="form-control"
-                          id="HighTemperatureAdd"
+                          id="High"
                           text = "High Temperature"
                         />
                         <label for="High" class="form-control">High Temperature</label>
@@ -214,7 +214,7 @@
                         <input
                           type="text"
                           class="form-control"
-                          id="LowTemperatureAdd"
+                          id="Low"
                           text="Low Temperature"
                         />
                         <label for="Low" class="form-control"
@@ -305,19 +305,19 @@
                           <input
                             type="text"
                             class="form-control"
-                            id="HighTemperatureAddd"
+                            id="HighAdd"
                             text = "High Temperature"
                           />
-                          <label for="High" class="form-control">High Temperature</label>
+                          <label for="HighAdd" class="form-control">High Temperature</label>
                         </div>
                         <div class="form-check gap-2">
                           <input
                             type="text"
                             class="form-control"
-                            id="LowTemperatureAddd"
+                            id="LowAdd"
                             text="Low Temperature"
                           />
-                          <label for="Low" class="form-control"
+                          <label for="LowAdd" class="form-control"
                             >Low Temperature</label
                           >
                         </div>
@@ -327,7 +327,7 @@
 
   
                     <div class="mb-3">
-                      <label for="inputDescription" class="form-label"
+                      <label for="inputDescriptionAdd" class="form-label"
                         >Description</label
                       >
                       <textarea
@@ -513,7 +513,7 @@
                       class="btn bg-black text-white" id="btn-edit">
                       <i class="bi bi-pencil-square"></i></a>
                       <a
-                      class="btn btn-dark d-flex align-items-center">
+                      class="btn deleteBtn btn-dark d-flex align-items-center">
                       <i class="bi bi-trash3-fill"></i></a>
                     </div>
                   </span>
@@ -535,8 +535,8 @@
             document.getElementById("inputDestination").value = City.destinations;
             document.getElementById("inputVisit").value = City.best_time_to_visit;
             document.getElementById("inputRating").value = City.ratings;
-            document.getElementById("HighTemperatureAdd").value = City.high;
-            document.getElementById("LowTemperatureAdd").value = City.low;
+            document.getElementById("High").value = City.high;
+            document.getElementById("Low").value = City.low;
             document.getElementById("inputDescription").value = City.description;
           }
 
@@ -674,7 +674,6 @@
                 .text();
               editingCityId = editCityIdText.split(" ")[1];
               const editingCity = getCitiesById(editingCityId);
-              console.log(editingCity);
               if (editingCity) {
                 populateUpdateModal(editingCity);
               } else {
@@ -682,18 +681,20 @@
               }
             });
             //Delete the pet and put the pets data structure to the jsonBlob array.
-            $(document).on("click", ".btn-danger", function () {
+            $(document).on("click", ".deleteBtn", function () {
               let parentDiv = $(this).parent().parent().parent();
               let parentId = parentDiv.attr("id");
-              const index = Cities.findIndex((City) => City.id === parentId);
-              console.log(index);
+              console.log(typeof parentId)
+              const index = Cities.findIndex((City) => City.cityId === parseInt(parentId));
+              console.log(index)
+              const countryIdx = countries.findIndex((Country)=> Country.country === country);
               if (index !== -1) {
                 Cities.splice(index, 1);
-                console.log(Cities);
+                countries[countryIdx].cities = Cities
                 $.ajax({
                         type: "PUT",
                         url: "https://jsonblob.com/api/1213499724727705600",
-                        data: JSON.stringify(Cities),
+                        data: JSON.stringify(countries),
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                       success: function(xhr,data,response){
@@ -718,35 +719,40 @@
             $(document).on("click", "#edit-submit", function () {
               const editingCity = getCitiesById(editingCityId);
               var updatedCity = {
-                id: editingCity.id,
+                cityId: editingCity.cityId,
                 avatar: editingCity.avatar,
-                name: $("#inputName").val() || editingCity.name,
+                city: $("#inputName").val() || editingCity.city,
                 destinations: $("#inputDestination").val() || editingCity.destinations,
                 best_time_to_visit: $("#inputVisit").val() || editingCity.best_time_to_visit,
                 ratings: $("#inputRating").val() || editingCity.ratings,
-                high: $("#HighTemperatureAdd").val() || editingCity.high,
-                low: $("#LowTemperatureAdd").val() || editingCity.low,
+                high: $("#High").val() || editingCity.high,
+                low: $("#Low").val() || editingCity.low,
                 description: $("#inputDescription").val() || editingCity.description,
+                places: [],
               };
               //update UI depend on new pets array stored in jsonBlob
-              const index = Cities.findIndex((City) => City.id === editingCityId);
-              if (index !== -1) {
-                Cities[index] = updatedCity;
-              $("#pets-container").empty();
-              displayCards(Cities);
+              const cityIdx = Cities.findIndex((City)=> City.cityId === parseInt(editingCityId))
+              Cities[cityIdx] = updatedCity;
+              const idx = countries.findIndex((Country)=> Country.country === country)
+              if (idx !== -1) {
+                countries[idx].cities = Cities;
+                $("#pets-container").empty();
+                displayCards(Cities);
               }
+              console.log(Cities)
+              console.log(countries)
               $("#update_modal").modal("hide");
               $.ajax({
                         type: "PUT",
                         url: "https://jsonblob.com/api/1213499724727705600",
-                        data: JSON.stringify(Cities),
+                        data: JSON.stringify(countries),
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                       success: function(xhr,data,response){
-                            console.log(xhr);
-                            console.log(data);
-                            console.log(response);
-                            console.log(response.getAllResponseHeaders());
+                            // console.log(xhr);
+                            // console.log(data);
+                            // console.log(response);
+                            // console.log(response.getAllResponseHeaders());
                         },
                         error: function(errMsg) {
                             alert(errMsg);
@@ -775,33 +781,38 @@
               var addingCity = {
                 cityId: generateCityId(),
                 avatar: imageFile,
-                name: $("#inputNameAdd").val(),
+                city: $("#inputNameAdd").val(),
                 destinations: $("#inputDestinationAdd").val(),
                 best_time_to_visit: $("#inputVisitAdd").val(),
                 ratings: $("#inputRatingAdd").val(),
-                high: $("#HighTemperatureAdd").val(),
-                low: $("#LowTemperatureAdd").val(),
+                high: $("#HighAdd").val(),
+                low: $("#LowAdd").val(),
                 description: $("#inputDescriptionAdd").val(),
                 palces: []
               };
               //update UI depend on new pets array stored in local storage
               //Using unshift method to add the new pet in index 0.
               Cities.unshift(addingCity);
-              $("#pets-container").empty();
-              displayCards(Cities);
-              displayPageBasedPagination(Cities);
+              const idx = countries.findIndex((Country)=> Country.country === country)
+               if (idx !== -1) {
+                countries[idx].cities = Cities;
+                $("#pets-container").empty();
+                displayCards(Cities);
+                displayPageBasedPagination(Cities);
+              }
+              
               $("#add_modal").modal("hide");
               $.ajax({
                         type: "PUT",
                         url: "https://jsonblob.com/api/1213499724727705600",
-                        data: JSON.stringify(Cities),
+                        data: JSON.stringify(countries),
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                       success: function(xhr,data,response){
-                            console.log(xhr);
-                            console.log(data);
-                            console.log(response);
-                            console.log(response.getAllResponseHeaders());
+                            // console.log(xhr);
+                            // console.log(data);
+                            // console.log(response);
+                            // console.log(response.getAllResponseHeaders());
                         },
                         error: function(errMsg) {
                             alert(errMsg);

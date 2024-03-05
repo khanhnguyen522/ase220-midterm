@@ -267,7 +267,7 @@
           <!--Modal Header-->
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="staticBackdropLabel">
-              Add Your Favorite City besides this listed-city
+              Add Your Favorite Places besides this listed-places
             </h1>
             <button
               type="button"
@@ -280,6 +280,10 @@
           <div class="modal-body">
             <div class="card-body d-flex flex-column">
                 <form>
+                     <div class="mb-3">
+                        <label for="cityImageAdd" class="form-label">Place Image URL</label>
+                        <input type="text" class="form-control" id="cityImageAdd" />
+                    </div>
                     <div class="mb-3">
                       <label for="inputName" class="form-label">Name</label>
                       <input type="text" class="form-control" id="inputNameAdd"/>
@@ -307,33 +311,29 @@
                           <input
                             type="text"
                             class="form-control"
-                            id="HighTemperatureAddd"
+                            id="HighAdd"
                             text = "High Temperature"
                           />
-                          <label for="High" class="form-control">High Temperature</label>
+                          <label for="HighAdd" class="form-control">High Temperature</label>
                         </div>
                         <div class="form-check gap-2">
                           <input
                             type="text"
                             class="form-control"
-                            id="LowTemperatureAddd"
+                            id="LowAdd"
                             text="Low Temperature"
                           />
-                          <label for="Low" class="form-control"
+                          <label for="LowAdd" class="form-control"
                             >Low Temperature</label
                           >
                         </div>
                       </div>
                     </div>
                     
+
   
                     <div class="mb-3">
-                      <label for="inputAge" class="form-label">ID</label>
-                      <input type="text" class="form-control" id="idAdd" />
-                    </div>
-  
-                    <div class="mb-3">
-                      <label for="inputDescription" class="form-label"
+                      <label for="inputDescriptionAdd" class="form-label"
                         >Description</label
                       >
                       <textarea
@@ -348,7 +348,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" id="add-submit" class="btn bg-black text-white">
-              Add City
+              Add Place
             </button>
           </div>
         </div>
@@ -395,7 +395,6 @@
         .get(userApiUrl, {})
         .then(function (res) {
           users = res.data;
-          console.log(users)
         })
         .catch(function (err) {
           console.log(err);
@@ -435,8 +434,7 @@
           cities = findCitiesByCountry(country)
           city = getQueryParam("city")
           places = findPlacesByCity(city)
-          console.log(places)
-          //console.log(Cities);
+         
          //PAGE BASED PAGINATION
           displayCards(places);
           displayPageBasedPagination(places);
@@ -553,7 +551,7 @@
           
 
           function getCitiesById(id) {
-            return details.find((City) => City.id === id);//return the pet whose id is passed as parameter
+            return cities.find((City) => City.cityId === id);//return the pet whose id is passed as parameter
           }
 
           function checkUserInLocalStorage(){
@@ -654,18 +652,6 @@
             });
           });
 
-
-      // listen to event when click on  INFORMATION icon (vanilla js)
-          document
-            .getElementById("info_modal")
-            .addEventListener("show.bs.modal", function (event) {
-              const modalDoc = event.relatedTarget;
-              const id =
-                modalDoc.parentNode.parentNode.querySelector('ul li[id="id"]');
-              const City = getCitiesById(id.innerText.split(" ")[1]);
-              populateInfoModal(City);
-            });
-
       
           $(() => {
            
@@ -673,11 +659,11 @@
             $(document).on("click", ".btn-danger", function () {
               let parentDiv = $(this).parent().parent().parent();
               let parentId = parentDiv.attr("id");
-              const index = details.findIndex((City) => City.id === parentId);
+              const index = cities.findIndex((City) => City.cityId === parentId);
               console.log(index);
               if (index !== -1) {
-                details.splice(index, 1);
-                console.log(details);
+                cities.splice(index, 1);
+                console.log(cities);
                 $.ajax({
                         type: "PUT",
                         url: "https://jsonblob.com/api/1213499724727705600",
@@ -729,9 +715,9 @@
                 description: $("#inputDescription").val() || editingCity.description,
               };
               //update UI depend on new pets array stored in jsonBlob
-              const index = details.findIndex((City) => City.id === editingCityId);
+              const index = cities.findIndex((City) => City.cityId === editingCityId);
               if (index !== -1) {
-                details[index] = updatedCity;
+                cities[index] = updatedCity;
               $("#pets-container").empty();
               displayCards(details);
               }
@@ -767,42 +753,59 @@
               imageFile = `${"../assets/"}${filePath}`;
               console.log(imageFile);
             })
+             function generatePlaceId() {
+                return new Date().getTime();
+              }
             //When add pet button is clicked we add the new card to the pets-container.
             $(document).on("click", "#add-submit", function () {
-              var addingCity = {
-                id: $("#idAdd").val(),
+              var addingPlace = {
+                placeId: generatePlaceId(),
                 avatar: imageFile,
-                name: $("#inputNameAdd").val(),
+                place: $("#inputNameAdd").val(),
                 destinations: $("#inputDestinationAdd").val(),
                 best_time_to_visit: $("#inputVisitAdd").val(),
                 ratings: $("#inputRatingAdd").val(),
                 high: $("#HighTemperatureAdd").val(),
                 low: $("#LowTemperatureAdd").val(),
                 description: $("#inputDescriptionAdd").val(),
+                comments: []
               };
+              console.log(addingPlace)
               //update UI depend on new pets array stored in local storage
               //Using unshift method to add the new pet in index 0.
-              details.unshift(addingCity);
-              $("#pets-container").empty();
-              displayCards(details);
-              displayPageBasedPagination(details);
-              $("#add_modal").modal("hide");
-              $.ajax({
-                        type: "PUT",
-                        url: "https://jsonblob.com/api/1213499724727705600",
-                        data: JSON.stringify(details),
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                      success: function(xhr,data,response){
-                            console.log(xhr);
-                            console.log(data);
-                            console.log(response);
-                            console.log(response.getAllResponseHeaders());
-                        },
-                        error: function(errMsg) {
-                            alert(errMsg);
-                        }
-                      });
+              console.log(places)
+              places.unshift(addingPlace);
+
+              const countryIdx = countries.findIndex((Country)=> Country.country === country)
+              const cityIdx = cities.findIndex((City)=> City.city === city)
+              console.log(countryIdx)
+              console.log(cityIdx)
+              if(countryIdx !== -1 && cityIdx !== -1){
+                 countries[countryIdx].cities[cityIdx].places = places;     
+                console.log(countries)
+                $("#pets-container").empty();
+                displayCards(places);
+                displayPageBasedPagination(places);
+                $("#add_modal").modal("hide");
+                $.ajax({
+                            type: "PUT",
+                            url: "https://jsonblob.com/api/1213499724727705600",
+                            data: JSON.stringify(countries),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                        success: function(xhr,data,response){
+                                // console.log(xhr);
+                                // console.log(data);
+                                // console.log(response);
+                                // console.log(response.getAllResponseHeaders());
+                            },
+                            error: function(errMsg) {
+                                alert(errMsg);
+                            }
+                        });
+                    
+                    }
+              
             });
           });
     });
