@@ -660,7 +660,7 @@ function populateUpdateModal(Country) {
             $(document).on("click", "#add-submit", function () {
               var addingCountry = {
                 id: $("#idAdd").val(),
-                avatar: imageFile,
+                avatar: $('#countryImageAdd').val(),
                 country: $("#inputcountryAdd").val(),
                 ratings: $("#inputRatingAdd").val(),
                 message: $("#inputDescriptionAdd").val(),
