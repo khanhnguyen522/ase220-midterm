@@ -1,0 +1,31 @@
+Khanh Nguyen, Rajani Khatri, Bhuwan Bhandari
+ASE 220 – Midterm Project
+4 March 2024
+Travel Suggestion Web Application Documentation
+A.	Purpose:
+Our Travel Suggestion Web Application aims to provides user with a convenient platform to explore and discover various countries, cities, and places of interest in Asia. The app serves as a virtual travel discovery platform, facilitating exploration and discovery of information about popular destinations. Users can interact with the content through comments and contributions.
+B.	Functional Requirements:
+1.	Browse countries in Asia:
+•	Users can view a list of countries in Asia on the homepage.
+•	Each country is displayed as a clickable card containing basic information.
+2.	Explore cities within countries:
+•	Upon clicking on a country card, users are directed to a new page displaying popular cities within that country.
+•	Cities are presented as clickable cards with relevant details.
+3.	Discover places of interest in cities:
+•	When a city card is clicked, users are taken to a page showcasing popular places of interest in that city.
+•	Places are displayed as clickable cards with descriptive information.
+4.	View and add comments:
+•	Users can view comments left by other users about specific places.
+•	Without logging in, users can read existing comments but cannot add new comments or reply to existing ones.
+•	After logging in, users have the ability to add new comments and reply to existing ones.
+5.	User authentication:
+•	Users can sign up using their name, email, password.
+•	An email address can only be used to sign up once to prevent duplicate accounts.
+•	Users can log in using their registered email and password.
+•	Authentication is managed by storing user data in a JSON blob and tracking the current login user in local storage.
+6.	Add, Edit, and Delete content:
+•	Users, whether logged in or not, can add new countries, cities, and places to JSON blob.
+•	All users have the ability to edit and delete countries, cities, and places.
+Note: the current version of the app does not implement robust user authentication beyond basic signup and login functionalities. Super authentication and enhanced security features will be implemented in the next phase of the project.
+
+
