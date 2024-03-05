@@ -187,10 +187,7 @@
                     <label for="inputRating" class="form-label">Ratings</label>
                     <input type="text" class="form-control" id="inputRating" />
                   </div>
-                  
-  
-                  
-  
+     
                   <div class="mb-3">
                     <label for="inputDescription" class="form-label"
                       >Short Introduction</label
@@ -248,11 +245,6 @@
                 <div class="mb-3">
                   <label for="inputcountry" class="form-label">Country Name</label>
                   <input type="text" class="form-control" id="inputcountryAdd"/>
-                </div>
-
-                 <div class="mb-3">
-                  <label for="inputAge" class="form-label">ID</label>
-                  <input type="text" class="form-control" id="idAdd" />
                 </div>
 
                 <div class="mb-3">
@@ -324,7 +316,6 @@
         //handle queery parameter
         $.getJSON("https://jsonblob.com/api/1213499724727705600", function(data ) {
           Countries = data;
-          console.log(Countries);
       //PAGE BASED PAGINATION
           displayCards(Countries);
           displayPageBasedPagination(Countries);
@@ -400,7 +391,7 @@
                       class="btn bg-black text-white" id="btn-edit">
                       <i class="bi bi-pencil-square"></i></a>
                       <a
-                      class="btn btn-dark d-flex align-items-center">
+                      class="btn deleteBtn btn-dark d-flex align-items-center">
                       <i class="bi bi-trash3-fill"></i></a>
                     </div>
                   </span>
@@ -443,6 +434,7 @@ function populateUpdateModal(Country) {
           
 
           function getCountriesById(id) {
+            id = parseInt(id)
             return Countries.find((Country) => Country.id === id);//return the pet whose id is passed as parameter
           }
 
@@ -561,10 +553,10 @@ function populateUpdateModal(Country) {
           $(() => {
             
             //Delete the pet and put the pets data structure to the jsonBlob array.
-            $(document).on("click", ".btn-dark", function () {
+            $(document).on("click", ".deleteBtn", function () {
               let parentDiv = $(this).parent().parent().parent();
               let parentId = parentDiv.attr("id");
-              const index = Countries.findIndex((Country) => Country.id === parentId);
+              const index = Countries.findIndex((Country) => Country.id === parseInt(parentId));
               console.log(index);
               if (index !== -1) {
                 Countries.splice(index, 1);
@@ -615,9 +607,10 @@ function populateUpdateModal(Country) {
                 country: $("#inputcountry").val() || editingCountry.country,
                 ratings: $("#inputRating").val() || editingCountry.ratings,
                 message: $("#inputDescription").val() || editingCountry.message,
+                cities: [],
               };
               //update UI depend on new pets array stored in jsonBlob
-              const index = Countries.findIndex((Country) => Country.id === editingCountryId);
+              const index = Countries.findIndex((Country) => Country.id === parseInt(editingCountryId));
               if (index !== -1) {
                 Countries[index] = updatedCountry;
               $("#country-container").empty();
@@ -631,10 +624,10 @@ function populateUpdateModal(Country) {
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                       success: function(xhr,data,response){
-                            console.log(xhr);
-                            console.log(data);
-                            console.log(response);
-                            console.log(response.getAllResponseHeaders());
+                            // console.log(xhr);
+                            // console.log(data);
+                            // console.log(response);
+                            // console.log(response.getAllResponseHeaders());
                         },
                         error: function(errMsg) {
                             alert(errMsg);
@@ -655,14 +648,18 @@ function populateUpdateModal(Country) {
               imageFile = `${"../assets/"}${filePath}`;
               console.log(imageFile);
             })
+            function generateCountryId() {
+                return new Date().getTime();
+              }
             //When add pet button is clicked we add the new card to the country-container.
             $(document).on("click", "#add-submit", function () {
               var addingCountry = {
-                id: $("#idAdd").val(),
+                id: generateCountryId(),
                 avatar: imageFile,
                 country: $("#inputcountryAdd").val(),
                 ratings: $("#inputRatingAdd").val(),
                 message: $("#inputDescriptionAdd").val(),
+                cities: [],
                          
               };
               //update UI depend on new pets array stored in local storage

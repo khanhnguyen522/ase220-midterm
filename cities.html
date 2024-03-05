@@ -275,8 +275,8 @@
             <div class="card-body d-flex flex-column">
                 <form>
                   <div class="mb-3">
-                    <label for="countryImageAdd" class="form-label">Country Image URL</label>
-                    <input type="text" class="form-control" id="countryImageAdd" />
+                    <label for="cityImageAdd" class="form-label">Country Image URL</label>
+                    <input type="text" class="form-control" id="cityImageAdd" />
                   </div>
                     <div class="mb-3">
                       <label for="inputName" class="form-label">Name</label>
@@ -324,11 +324,7 @@
                       </div>
                     </div>
                     
-  
-                    <div class="mb-3">
-                      <label for="inputAge" class="form-label">ID</label>
-                      <input type="text" class="form-control" id="idAdd" />
-                    </div>
+
   
                     <div class="mb-3">
                       <label for="inputDescription" class="form-label"
@@ -771,10 +767,13 @@
               imageFile = `${"../assets/"}${filePath}`;
               console.log(imageFile);
             })
+             function generateCityId() {
+                return new Date().getTime();
+              }
             //When add pet button is clicked we add the new card to the pets-container.
             $(document).on("click", "#add-submit", function () {
               var addingCity = {
-                id: $("#idAdd").val(),
+                cityId: generateCityId(),
                 avatar: imageFile,
                 name: $("#inputNameAdd").val(),
                 destinations: $("#inputDestinationAdd").val(),
@@ -783,6 +782,7 @@
                 high: $("#HighTemperatureAdd").val(),
                 low: $("#LowTemperatureAdd").val(),
                 description: $("#inputDescriptionAdd").val(),
+                palces: []
               };
               //update UI depend on new pets array stored in local storage
               //Using unshift method to add the new pet in index 0.
