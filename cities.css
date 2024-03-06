@@ -14,6 +14,13 @@
   width: 100%; /* Full width */
   height: 400px; /*  height */
   object-fit: cover; /* This will cover the height of the carousel without stretching the image */
+  transition: 0.6s;
+}
+.card-img-top {
+  width: 100%; /* Full width */
+  height: 400px; /*  height */
+  object-fit: cover; /* This will cover the height of the carousel without stretching the image */
+  transition: 0.6s;
 }
 /* Position the heart button in the top-right corner */
 .heart-button {
@@ -48,5 +55,17 @@
 .bg-body-tertiary {
   position: -webkit-sticky; /* For Safari */
   position: sticky;
-  top: 200px; /* This will make the navbar stick 50px from the top */
+  top: 65px; /* This will make the navbar stick 50px from the top */
+}
+.btn {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+  transition: 0.6s;
 }
