@@ -14,7 +14,7 @@ Our Travel Suggestion Web Application aims to provides user with a convenient pl
 5. User authentication and linking pages:
 - Khanh: implement login and signup modal, user login and signup function, logout function; link pages
 ## C. Documentation: 
-in documentation.txt in repo
+documentation.txt in repo
 ## D. Video Demo:
-
+Link: https://app.weet.co/play/a7a2141d/create-video-tutorials-with-weet
 
